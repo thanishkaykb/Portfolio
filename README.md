@@ -91,4 +91,4 @@ Location: Chennai, Tamil Nadu
 ## ©️ Author
 
 Thanishka Yogesh  
-Undergraduate Student | Campus Ambassador | Aspiring Software Professional
+Undergraduate Student | Campus Ambassador
