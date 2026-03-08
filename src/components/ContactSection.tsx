@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Mail, Linkedin, Github, Send, MapPin, Phone, CheckCircle } from "lucide-react";
+import { Mail, Linkedin, Github, Send, MapPin, Phone, CheckCircle, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 const ContactSection = () => {
@@ -16,20 +16,26 @@ const ContactSection = () => {
     setSending(true);
     setError("");
 
-    const { error: dbError } = await supabase.from("contact_messages").insert({
+    const payload = {
       name: form.name.trim(),
       email: form.email.trim(),
       subject: form.subject.trim() || null,
       message: form.message.trim(),
-    });
+    };
 
-    setSending(false);
+    // Save to database
+    const { error: dbError } = await supabase.from("contact_messages").insert(payload);
 
     if (dbError) {
+      setSending(false);
       setError("Something went wrong. Please try again.");
       return;
     }
 
+    // Send email notification (fire and forget - don't block on failure)
+    supabase.functions.invoke("send-contact-email", { body: payload }).catch(() => {});
+
+    setSending(false);
     setSent(true);
     setForm({ name: "", email: "", subject: "", message: "" });
     setTimeout(() => setSent(false), 5000);
@@ -61,35 +67,48 @@ const ContactSection = () => {
             </p>
 
             <div className="space-y-4">
-              <a href="https://mail.google.com/mail/?view=cm&to=thanishka.ykb@gmail.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                  <Mail size={18} className="text-primary" />
-                </div>
-                <span className="text-sm">THANISHKA.YKB@GMAIL.COM</span>
-              </a>
-
-              <div className="flex items-center gap-3 text-muted-foreground">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <Phone size={18} className="text-primary" />
-                </div>
-                <span className="text-sm">+91 90256 58705</span>
-              </div>
-
-              <div className="flex items-center gap-3 text-muted-foreground">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <MapPin size={18} className="text-primary" />
-                </div>
-                <span className="text-sm">Chennai, Tamil Nadu 600045</span>
-              </div>
+              {[
+                { href: "https://mail.google.com/mail/?view=cm&to=thanishka.ykb@gmail.com", icon: Mail, text: "THANISHKA.YKB@GMAIL.COM", external: true },
+                { icon: Phone, text: "+91 90256 58705" },
+                { icon: MapPin, text: "Chennai, Tamil Nadu 600045" },
+              ].map((item, i) => (
+                <motion.div key={i} whileHover={{ x: 4 }} transition={{ type: "spring", stiffness: 300 }}>
+                  {item.href ? (
+                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:shadow-[0_0_15px_hsl(var(--primary)/0.15)] transition-all">
+                        <item.icon size={18} className="text-primary" />
+                      </div>
+                      <span className="text-sm">{item.text}</span>
+                    </a>
+                  ) : (
+                    <div className="flex items-center gap-3 text-muted-foreground">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                        <item.icon size={18} className="text-primary" />
+                      </div>
+                      <span className="text-sm">{item.text}</span>
+                    </div>
+                  )}
+                </motion.div>
+              ))}
             </div>
 
             <div className="flex gap-3 pt-4">
-              <a href="https://www.linkedin.com/in/thanishka-yogesh-7496b637b" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors">
-                <Linkedin size={18} />
-              </a>
-              <a href="https://github.com/thanishkaykb" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors">
-                <Github size={18} />
-              </a>
+              {[
+                { href: "https://www.linkedin.com/in/thanishka-yogesh-7496b637b", icon: Linkedin },
+                { href: "https://github.com/thanishkaykb", icon: Github },
+              ].map((social) => (
+                <motion.a
+                  key={social.href}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 hover:shadow-[0_0_15px_hsl(var(--primary)/0.15)] transition-all"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <social.icon size={18} />
+                </motion.a>
+              ))}
             </div>
           </motion.div>
 
@@ -100,60 +119,60 @@ const ContactSection = () => {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="space-y-4"
           >
-            <input
-              type="text"
-              placeholder="Your Name"
-              required
-              maxLength={100}
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="w-full px-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors text-sm font-body"
-            />
-            <input
-              type="email"
-              placeholder="Your Email"
-              required
-              maxLength={255}
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="w-full px-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors text-sm font-body"
-            />
-            <input
-              type="text"
-              placeholder="Subject"
-              maxLength={200}
-              value={form.subject}
-              onChange={(e) => setForm({ ...form, subject: e.target.value })}
-              className="w-full px-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors text-sm font-body"
-            />
-            <textarea
+            {["name", "email", "subject"].map((field) => (
+              <motion.input
+                key={field}
+                type={field === "email" ? "email" : "text"}
+                placeholder={field === "name" ? "Your Name" : field === "email" ? "Your Email" : "Subject"}
+                required={field !== "subject"}
+                maxLength={field === "email" ? 255 : field === "subject" ? 200 : 100}
+                value={form[field as keyof typeof form]}
+                onChange={(e) => setForm({ ...form, [field]: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:shadow-[0_0_15px_hsl(var(--primary)/0.1)] transition-all text-sm font-body"
+                whileFocus={{ scale: 1.01 }}
+              />
+            ))}
+            <motion.textarea
               placeholder="Your Message"
               required
               rows={5}
               maxLength={2000}
               value={form.message}
               onChange={(e) => setForm({ ...form, message: e.target.value })}
-              className="w-full px-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors text-sm font-body resize-none"
+              className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:shadow-[0_0_15px_hsl(var(--primary)/0.1)] transition-all text-sm font-body resize-none"
+              whileFocus={{ scale: 1.01 }}
             />
 
             {error && (
-              <p className="text-sm text-destructive font-body">{error}</p>
+              <motion.p
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-sm text-destructive font-body"
+              >
+                {error}
+              </motion.p>
             )}
 
             {sent ? (
-              <div className="flex items-center gap-2 text-primary font-display font-semibold text-sm">
-                <CheckCircle size={16} />
-                Message sent successfully!
-              </div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="flex items-center gap-2 text-primary font-display font-semibold text-sm py-3"
+              >
+                <CheckCircle size={18} />
+                Message sent successfully! I'll get back to you soon.
+              </motion.div>
             ) : (
-              <button
+              <motion.button
                 type="submit"
                 disabled={sending}
-                className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-display font-semibold text-sm rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
+                className="flex items-center gap-2 px-7 py-3.5 bg-primary text-primary-foreground font-display font-semibold text-sm rounded-xl hover:shadow-[0_0_25px_hsl(var(--primary)/0.3)] transition-all disabled:opacity-50"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <Send size={16} />
+                {sending ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
                 {sending ? "Sending..." : "Send Message"}
-              </button>
+              </motion.button>
             )}
           </motion.form>
         </div>
