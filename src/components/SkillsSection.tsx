@@ -4,15 +4,15 @@ import { useRef } from "react";
 const skillGroups = [
   {
     category: "Development",
-    skills: ["Python", "HTML/CSS", "JavaScript", "React", "Full Stack Dev", "Web Development", "App Development"],
+    skills: ["Python", "HTML/CSS", "JavaScript", "TypeScript", "React", "Node.js", "Express", "MySQL", "Full Stack Development", "Web Development"],
   },
   {
     category: "Tools & Platforms",
-    skills: ["Microsoft Office", "Canva", "AWS Systems Manager", "CATIA", "Git & GitHub"],
+    skills: ["Microsoft Office", "Canva", "Git & GitHub", "VS Code", "Figma"],
   },
   {
     category: "AI & Data",
-    skills: ["Artificial Intelligence", "Machine Learning", "Data Analytics", "GenAI"],
+    skills: ["Artificial Intelligence", "Machine Learning", "Data Analytics", "GenAI", "Data Visualization", "SQL", "Data Preprocessing"],
   },
   {
     category: "Design",
