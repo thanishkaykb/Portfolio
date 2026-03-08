@@ -1,104 +1,27 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import { ExternalLink, Github } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
+import { ExternalLink, Github, Loader2 } from "lucide-react";
 
-const projects = [
-  {
-    name: "CongestiQ-AI",
-    desc: "AI-powered smart traffic intelligence platform with real-time map data, weather insights, and intelligent routing.",
-    tech: ["TypeScript", "AI", "Maps API"],
-    repo: "https://github.com/thanishkaykb/CongestiQ-AI",
-    featured: true,
-  },
-  {
-    name: "Anonymous Whispers",
-    desc: "Privacy-first web app for sharing thoughts and confessions completely anonymously.",
-    tech: ["TypeScript", "React", "Full Stack"],
-    repo: "https://github.com/thanishkaykb/Anonymous_Whispers",
-    featured: true,
-  },
-  {
-    name: "Social Media Platform",
-    desc: "Full-stack social platform with user profiles, posts, likes, and comments using Node.js, Express & MySQL.",
-    tech: ["JavaScript", "Node.js", "MySQL"],
-    repo: "https://github.com/thanishkaykb/Social-Media-Platform",
-    featured: true,
-  },
-  {
-    name: "Local Store E-Commerce",
-    desc: "E-commerce platform for local stores with product browsing, cart management using Node.js & MySQL.",
-    tech: ["JavaScript", "Express", "MySQL"],
-    repo: "https://github.com/thanishkaykb/Local-Store-E-commerce-Platform",
-  },
-  {
-    name: "Employee Management System",
-    desc: "CRUD application with JWT-based authentication for managing employee records.",
-    tech: ["JavaScript", "Node.js", "JWT"],
-    repo: "https://github.com/thanishkaykb/Employee-Management-System-CRUD-Application-",
-  },
-  {
-    name: "Secure Auth System",
-    desc: "User authentication with bcrypt password hashing, JWT tokens, and protected routes.",
-    tech: ["JavaScript", "Express", "bcrypt"],
-    repo: "https://github.com/thanishkaykb/Secure-User-Authentication-System",
-  },
-  {
-    name: "Language Translation Tool",
-    desc: "Smart multilingual translator powered by modern translation APIs for accurate text conversion.",
-    tech: ["HTML", "CSS", "JavaScript"],
-    repo: "https://github.com/thanishkaykb/LanguageTranslationTool",
-  },
-  {
-    name: "FAQ Chatbot",
-    desc: "Intelligent chatbot using text preprocessing and cosine similarity to answer FAQs.",
-    tech: ["HTML", "JavaScript", "NLP"],
-    repo: "https://github.com/thanishkaykb/ChatbotForFAQs",
-  },
-  {
-    name: "VPN Landing Page",
-    desc: "Modern, visually appealing landing page with clean layout design and responsive UI.",
-    tech: ["HTML", "CSS"],
-    repo: "https://github.com/thanishkaykb/LandingPage",
-  },
-  {
-    name: "Weather App",
-    desc: "Interactive weather application displaying real-time weather data for any city.",
-    tech: ["HTML", "CSS", "JavaScript"],
-    repo: "https://github.com/thanishkaykb/BasicWeatherApp",
-  },
-  {
-    name: "Temperature Converter",
-    desc: "Responsive converter between Celsius, Fahrenheit, and Kelvin with clean UI.",
-    tech: ["HTML", "CSS", "JavaScript"],
-    repo: "https://github.com/thanishkaykb/TemperatureConverterWebsite",
-  },
-  {
-    name: "Flashcard Quiz App",
-    desc: "Interactive study tool with flippable flashcards, navigation, and quiz management.",
-    tech: ["HTML", "CSS", "JavaScript"],
-    repo: "https://github.com/thanishkaykb/FlashCardQuizApp",
-  },
-  {
-    name: "Random Quote Generator",
-    desc: "Elegant app displaying inspirational quotes with author attribution on each click.",
-    tech: ["HTML", "CSS", "JavaScript"],
-    repo: "https://github.com/thanishkaykb/RandomQuoteGenerator",
-  },
-  {
-    name: "Password Generator",
-    desc: "Secure command-line tool for generating strong random passwords with customizable options.",
-    tech: ["Python"],
-    repo: "https://github.com/thanishkaykb/PasswardGenerator",
-  },
-  {
-    name: "BMI Calculator",
-    desc: "Simple BMI calculator that computes Body Mass Index and displays health categories.",
-    tech: ["Python"],
-    repo: "https://github.com/thanishkaykb/BMI_Calculator",
-  },
+interface GitHubRepo {
+  name: string;
+  description: string | null;
+  html_url: string;
+  language: string | null;
+  topics: string[];
+  stargazers_count: number;
+  fork: boolean;
+}
+
+// Fallback data in case GitHub API fails
+const fallbackProjects = [
+  { name: "CongestiQ-AI", desc: "AI-powered smart traffic intelligence platform with real-time map data, weather insights, and intelligent routing.", tech: ["TypeScript", "AI", "Maps API"], repo: "https://github.com/thanishkaykb/CongestiQ-AI" },
+  { name: "Anonymous Whispers", desc: "Privacy-first web app for sharing thoughts and confessions completely anonymously.", tech: ["TypeScript", "React", "Full Stack"], repo: "https://github.com/thanishkaykb/Anonymous_Whispers" },
+  { name: "Social Media Platform", desc: "Full-stack social platform with user profiles, posts, likes, and comments using Node.js, Express & MySQL.", tech: ["JavaScript", "Node.js", "MySQL"], repo: "https://github.com/thanishkaykb/Social-Media-Platform" },
 ];
 
-const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => (
+const GITHUB_USERNAME = "thanishkaykb";
+
+const ProjectCard = ({ project }: { project: { name: string; desc: string; tech: string[]; repo: string } }) => (
   <motion.a
     href={project.repo}
     target="_blank"
@@ -110,19 +33,14 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
     className="group relative rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-[0_4px_20px_hsl(var(--primary)/0.1)] cursor-pointer"
   >
     <div className="relative z-10 p-6">
-      {project.featured && (
-        <span className="absolute top-4 right-4 text-[10px] font-display font-bold tracking-widest uppercase text-primary bg-primary/10 px-2 py-0.5 rounded-full">
-          Featured
-        </span>
-      )}
       <div className="flex items-start gap-3 mb-3">
         <Github size={18} className="mt-0.5 shrink-0 text-muted-foreground group-hover:text-primary transition-colors" />
         <h3 className="font-display font-semibold text-sm leading-tight text-foreground group-hover:text-primary transition-colors">
-          {project.name}
+          {project.name.replace(/-/g, " ").replace(/_/g, " ")}
         </h3>
       </div>
-      <p className="text-muted-foreground text-xs leading-relaxed mb-4 font-body">
-        {project.desc}
+      <p className="text-muted-foreground text-xs leading-relaxed mb-4 font-body line-clamp-3">
+        {project.desc || "No description available."}
       </p>
       <div className="flex flex-wrap gap-1.5">
         {project.tech.map((t) => (
@@ -139,6 +57,37 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
 const ProjectsSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [projects, setProjects] = useState<{ name: string; desc: string; tech: string[]; repo: string }[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRepos = async () => {
+      try {
+        const response = await fetch(
+          `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated&direction=desc`,
+          { headers: { Accept: "application/vnd.github.mercy-preview+json" } }
+        );
+        if (!response.ok) throw new Error("GitHub API error");
+        
+        const repos: GitHubRepo[] = await response.json();
+        const mapped = repos
+          .filter((r) => !r.fork)
+          .map((r) => ({
+            name: r.name,
+            desc: r.description || "",
+            tech: r.topics?.length ? r.topics.slice(0, 3) : r.language ? [r.language] : [],
+            repo: r.html_url,
+          }));
+        
+        setProjects(mapped.length > 0 ? mapped : fallbackProjects);
+      } catch {
+        setProjects(fallbackProjects);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchRepos();
+  }, []);
 
   return (
     <section id="projects" className="section-padding" ref={ref}>
@@ -153,19 +102,21 @@ const ProjectsSection = () => {
             Things I've <span className="text-gradient">Built</span>
           </h2>
           <p className="text-muted-foreground font-body text-sm mb-12 max-w-xl">
-            A collection of projects spanning full-stack apps, AI tools, and frontend experiments — all open source on GitHub.
+            Live from GitHub — every new project automatically appears here.
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {projects.map((project, i) => (
-            <ProjectCard
-              key={project.name}
-              project={project}
-              index={i}
-            />
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 size={24} className="animate-spin text-primary" />
+          </div>
+        ) : (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {projects.map((project) => (
+              <ProjectCard key={project.name} project={project} />
+            ))}
+          </div>
+        )}
 
         <motion.div
           initial={{ opacity: 0 }}
@@ -175,7 +126,7 @@ const ProjectsSection = () => {
           className="mt-10 text-center"
         >
           <a
-            href="https://github.com/thanishkaykb"
+            href={`https://github.com/${GITHUB_USERNAME}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm font-display text-muted-foreground hover:text-primary transition-colors"
