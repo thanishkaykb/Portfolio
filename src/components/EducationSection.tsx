@@ -9,9 +9,6 @@ const education = [
     period: "2025 – Expected 2029",
     details: [
       "First Semester: 8.50 CGPA",
-      "IEEE Computer Society & Reliability Society Member",
-      "YUCI & UBA Volunteer",
-      "Designer at YUCI, IEEE CS & Reliability Society",
       "Active volunteer & participant in hackathons, workshops, and technical events",
     ],
   },

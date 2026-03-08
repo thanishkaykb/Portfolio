@@ -8,7 +8,7 @@ const links = [
   { label: "GitHub", href: "https://github.com/thanishkaykb", icon: Github, color: "from-[hsl(0,0%,20%)] to-[hsl(0,0%,35%)]" },
   { label: "Art Account", href: "https://instagram.com", icon: Palette, color: "from-[hsl(330,80%,50%)] to-[hsl(20,90%,55%)]" },
   { label: "Poetry Account", href: "https://instagram.com", icon: PenLine, color: "from-[hsl(270,60%,50%)] to-[hsl(300,70%,60%)]" },
-  { label: "Email Me", href: "mailto:thanishka.ykb@gmail.com", icon: Mail, color: "from-[hsl(var(--primary))] to-[hsl(var(--accent))]" },
+  { label: "Email Me", href: getEmailHref("thanishka.ykb@gmail.com"), icon: Mail, color: "from-[hsl(var(--primary))] to-[hsl(var(--accent))]" },
   { label: "+91 90256 58705", href: "tel:+919025658705", icon: Phone, color: "from-[hsl(150,60%,40%)] to-[hsl(170,70%,45%)]" },
 ];
 

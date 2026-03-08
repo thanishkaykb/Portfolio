@@ -25,7 +25,7 @@ const skillGroups = [
   {
     category: "Soft Skills",
     emoji: "🧠",
-    skills: ["Team Management", "Problem Solving", "Verbal Communication", "Leadership", "Time Management", "Multitasking"],
+    skills: ["Team Management", "Problem Solving", "Verbal Communication", "Leadership", "Time Management", "Multitasking", "Volunteering"],
   },
   {
     category: "Languages",

@@ -69,7 +69,7 @@ const ContactSection = () => {
 
             <div className="space-y-4">
               {[
-                { href: "mailto:thanishka.ykb@gmail.com", icon: Mail, text: "THANISHKA.YKB@GMAIL.COM", external: true },
+                { href: getEmailHref("thanishka.ykb@gmail.com"), icon: Mail, text: "THANISHKA.YKB@GMAIL.COM", external: true },
                 { icon: Phone, text: "+91 90256 58705" },
                 { icon: MapPin, text: "Chennai, Tamil Nadu 600045" },
               ].map((item, i) => (
