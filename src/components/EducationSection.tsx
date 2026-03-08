@@ -8,7 +8,7 @@ const education = [
     degree: "Bachelor of Engineering — Computer Science",
     period: "2025 – Expected 2029",
     details: [
-      "Semester 1 Result: 8.50 CGPA",
+      "Semester 1: 8.50 CGPA",
       "IEEE Computer Society & Reliability Society Member",
       "YUCI & UBA Volunteer",
       "Designer at YUCI, IEEE CS & Reliability Society",
