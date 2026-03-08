@@ -139,7 +139,6 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
 const ProjectsSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <section id="projects" className="section-padding" ref={ref}>
@@ -164,9 +163,6 @@ const ProjectsSection = () => {
               key={project.name}
               project={project}
               index={i}
-              isHovered={hoveredIndex === i}
-              onHover={() => setHoveredIndex(i)}
-              onLeave={() => setHoveredIndex(null)}
             />
           ))}
         </div>
