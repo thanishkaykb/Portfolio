@@ -12,7 +12,7 @@ const education = [
       "IEEE Computer Society & Reliability Society Member",
       "YUCI & UBA Volunteer",
       "Designer at YUCI, IEEE CS & Reliability Society",
-      "Coursework: AI, Python, AWS, UI/UX, CATIA, GenAI, and more",
+      "Active volunteer & participant in hackathons, workshops, and technical events",
     ],
   },
   {
