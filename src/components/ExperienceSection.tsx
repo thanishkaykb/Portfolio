@@ -174,12 +174,8 @@ const TimelineCard = ({ exp, index, isLeft }: { exp: Role; index: number; isLeft
 const ExperienceSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [activeFilter, setActiveFilter] = useState("All");
 
-  const filtered = useMemo(
-    () => activeFilter === "All" ? experiences : experiences.filter((e) => e.type === activeFilter),
-    [activeFilter]
-  );
+  const filtered = experiences;
 
   return (
     <section id="experience" className="section-padding overflow-hidden" ref={ref}>
