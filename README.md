@@ -1,73 +1,94 @@
-# Welcome to your Lovable project
+# 🌐 Personal Portfolio Website
 
-## Project info
+This repository contains my personal portfolio website created using HTML and CSS.  
+The portfolio showcases my education, skills, internships, campus ambassador roles, achievements, courses completed, and contact details.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+---
 
-## How can I edit this code?
+## 👤 About Me
 
-There are several ways of editing your application.
+Name: Thanishka Yogesh  
+Role: Undergraduate Student | Campus Ambassador | Intern  
+Location: Chennai, Tamil Nadu, India  
 
-**Use Lovable**
+I am an organized and dependable undergraduate student with a strong interest in technology, web development, leadership, and continuous learning. I actively participate in campus ambassador programs, internships, volunteering activities, and creative design work while building a strong foundation in computer science.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠️ Technologies Used
 
-**Use your preferred IDE**
+- HTML5  
+- CSS3  
+- Visual Studio Code  
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+(No frameworks or JavaScript used – beginner friendly)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+## 📂 Project Structure
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+portfolio/  
+│── index.html  
+│── style.css  
+│── ThanishkaYogesh026.jpeg  
+│── README.md  
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+---
 
-# Step 3: Install the necessary dependencies.
-npm i
+## ✨ Features
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+- Personal introduction with profile image  
+- Professional summary  
+- Skills and competencies  
+- Education details  
+- Internships and work experience  
+- Campus ambassador roles  
+- Achievements, clubs, and volunteering  
+- Courses and certifications completed  
+- Languages known  
+- Interests and creative work  
+- Contact information with visible phone number  
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🚀 How to Run the Project
 
-**Use GitHub Codespaces**
+1. Download or clone this repository  
+2. Open the folder in Visual Studio Code  
+3. Open index.html in any browser  
+   OR  
+4. Use the Live Server extension for better experience  
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
+## 🔗 Online Profiles
 
-This project is built with:
+LinkedIn: https://www.linkedin.com/in/thanishka-yogesh-7496b  
+GitHub: https://github.com/thanishkaykb  
+SkillRack: http://www.skillrack.com/profile/545167  
+Poetry: https://www.poetrysoup.com/poems_poets/poems_by_poet_read.aspx?ID=181303  
+Art Instagram: https://www.instagram.com/art_by_thanishka  
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
+## 📞 Contact
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+Phone: +91 90256 58705  
+Email: THANISHKA.YKB@gmail.com  
+Location: Chennai, Tamil Nadu  
 
-## Can I connect a custom domain to my Lovable project?
+---
 
-Yes, you can!
+## 📌 Future Enhancements
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- Add JavaScript for interactivity  
+- Dark mode toggle  
+- Downloadable resume button  
+- Host the website using GitHub Pages  
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
+
+## ©️ Author
+
+Thanishka Yogesh  
+Undergraduate Student | Campus Ambassador
