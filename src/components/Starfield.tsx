@@ -30,7 +30,6 @@ const Starfield = () => {
         size: Math.random() * 1.2 + 0.3,
         opacity: Math.random() * 0.3 + 0.08,
       });
-      });
     }
 
     const animate = () => {
