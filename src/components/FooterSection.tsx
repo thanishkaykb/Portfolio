@@ -1,4 +1,5 @@
 import { Linkedin, Github, Mail } from "lucide-react";
+import { getEmailHref } from "@/lib/email";
 
 const FooterSection = () => (
   <footer className="border-t border-border px-6 py-8 md:px-12 lg:px-24 xl:px-32">
