@@ -149,7 +149,7 @@ const TimelineCard = ({ exp, index, isLeft }: { exp: Role; index: number; isLeft
           </div>
 
           <AnimatePresence>
-            {selected && (
+            {hovered && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
