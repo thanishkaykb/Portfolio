@@ -13,6 +13,7 @@ import CustomCursor from "@/components/CustomCursor";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
+      <CustomCursor />
       <Starfield />
       <div className="relative z-10">
         <Navbar />
