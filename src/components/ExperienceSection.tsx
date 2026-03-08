@@ -51,67 +51,123 @@ const fallbackConfig = { bg: "bg-secondary", dot: "bg-muted-foreground", border:
 
 const allTypes = ["All", ...Array.from(new Set(experiences.map((e) => e.type)))];
 
+const roleDescriptions: Record<string, string> = {
+  "Campus Ambassador Coordinator": "Coordinating campus ambassador activities, managing outreach programs, and building partnerships across colleges for KM UniTech.",
+  "Marketing Team Lead": "Leading marketing strategies, content campaigns, and brand positioning for KM UniTech across digital platforms.",
+  "Design Intern": "Creating visual assets, social media graphics, and brand collateral for KM UniTech's digital presence.",
+  "Volunteer": "Contributing to CodeSapiens community events, peer programming sessions, and collaborative coding initiatives.",
+  "Campus Ambassador|HCL GUVI": "Promoting GUVI's tech courses and bootcamps, organizing campus workshops, and bridging student-industry connections.",
+  "Campus Ambassador|Zyra Academy": "Representing Zyra Academy on campus, driving student enrollments and awareness for their tech education programs.",
+  "Founder & Community Owner": "A WhatsApp community sharing info about upcoming Events and Hackathons — connecting students with opportunities.",
+  "Event Coordinator & Social Media Manager": "Planning and executing tech events, managing social media presence, and growing IGNITERS' community engagement.",
+  "Full-Stack Web Development Intern": "Built full-stack web applications, worked with modern frameworks, and delivered production-ready code at Prodigy InfoTech.",
+  "Google Student Ambassador": "Official Google Student Ambassador — promoting Google technologies, organizing workshops, and mentoring peers.",
+  "Web Dev & Designing Intern": "Developed responsive websites and designed UI/UX interfaces during internship at Oasis Infobyte.",
+  "Python Programming Intern": "Developed Python-based solutions and automation scripts during internship at Oasis Infobyte.",
+  "AI Intern": "Explored AI/ML models, built intelligent solutions, and contributed to AI research projects at CodeAlpha.",
+  "App Development Intern": "Designed and developed mobile application prototypes and features during internship at CodeAlpha.",
+  "HR Intern": "Managing recruitment workflows, coordinating with teams, and handling documentation at Missile Man Scientific Publications.",
+  "Design Team Member": "Creating posters, event visuals, and promotional content for Unnat Bharat Abhiyan (UBA) initiatives.",
+  "UBA Member / Volunteer": "Volunteering for rural development and community outreach programs under Unnat Bharat Abhiyan.",
+  "Poster Team Member": "Designing event posters and marketing visuals for Youth United Council of India (YUCI) events.",
+  "YUCI Member": "Active member contributing to YUCI's mission of youth empowerment and social development initiatives.",
+};
+
+const getDescription = (exp: Role): string => {
+  return exp.description || roleDescriptions[`${exp.title}|${exp.company}`] || roleDescriptions[exp.title] || 
+    `${exp.type} role at ${exp.company} — contributing to organizational goals and professional growth.`;
+};
+
 const TimelineCard = ({ exp, index, isLeft }: { exp: Role; index: number; isLeft: boolean }) => {
-  const [expanded, setExpanded] = useState(false);
+  const [selected, setSelected] = useState(false);
   const config = typeConfig[exp.type] || fallbackConfig;
   const isPresent = exp.period.includes("Present");
+  const description = getDescription(exp);
 
   return (
     <motion.div
       className={`relative flex ${isLeft ? "md:justify-end" : "md:justify-start"} md:w-[calc(50%-20px)] ${isLeft ? "md:ml-0" : "md:ml-auto"}`}
-      initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay: index * 0.03 }}
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: false, margin: "-80px" }}
+      transition={{ duration: 0.5, type: "spring", stiffness: 100, damping: 15 }}
     >
       {/* Connector line to center - desktop */}
-      <div className={`hidden md:block absolute top-6 ${isLeft ? "right-0 translate-x-[20px]" : "left-0 -translate-x-[20px]"} w-[20px] h-px bg-border`} />
+      <motion.div
+        className={`hidden md:block absolute top-6 ${isLeft ? "right-0 translate-x-[20px]" : "left-0 -translate-x-[20px]"} h-px bg-border`}
+        initial={{ width: 0 }}
+        whileInView={{ width: 20 }}
+        viewport={{ once: false, margin: "-80px" }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      />
 
       <motion.div
-        onClick={() => exp.description && setExpanded(!expanded)}
-        className={`relative w-full ml-8 md:ml-0 group rounded-xl border ${config.border} bg-card/80 backdrop-blur-sm p-5 transition-all duration-300 hover:bg-card ${exp.description ? "cursor-pointer" : "cursor-default"}`}
-        whileHover={{ y: -3, transition: { duration: 0.2 } }}
+        layout
+        onClick={() => setSelected(!selected)}
+        className={`relative w-full ml-8 md:ml-0 group rounded-xl border bg-card/80 backdrop-blur-sm cursor-pointer transition-colors duration-300 hover:bg-card overflow-hidden ${
+          selected ? `${config.border} shadow-lg` : `${config.border}`
+        }`}
+        animate={{
+          scale: selected ? 1.04 : 1,
+          zIndex: selected ? 20 : 1,
+        }}
+        whileHover={!selected ? { y: -3 } : {}}
+        transition={{ type: "spring", stiffness: 300, damping: 25 }}
       >
-        {/* Type badge */}
-        <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full ${config.bg} ${config.border} border mb-3`}>
-          <span className={`w-1.5 h-1.5 rounded-full ${config.dot} ${isPresent ? config.glow : ""}`} />
-          <span className={`text-[10px] font-display font-bold tracking-wider uppercase ${config.text}`}>
-            {exp.type}
-          </span>
-        </div>
+        {/* Glow backdrop on select */}
+        <motion.div
+          className={`absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-glow-secondary/5`}
+          animate={{ opacity: selected ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+        />
 
-        <h3 className="font-display font-semibold text-foreground text-[15px] leading-snug group-hover:text-primary transition-colors mb-1.5">
-          {exp.title}
-        </h3>
-
-        <div className="flex items-center gap-1.5 mb-1">
-          <Building2 size={12} className="text-muted-foreground/60" />
-          <span className="text-xs text-muted-foreground font-body">{exp.company}</span>
-        </div>
-
-        <div className="flex items-center gap-1.5">
-          <Calendar size={12} className="text-muted-foreground/40" />
-          <span className="text-[11px] text-muted-foreground/60 font-body">{exp.period}</span>
-          {isPresent && (
-            <span className="relative flex h-1.5 w-1.5 ml-1">
-              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${config.dot} opacity-75`} />
-              <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${config.dot}`} />
+        <div className="relative z-10 p-5">
+          {/* Type badge */}
+          <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full ${config.bg} ${config.border} border mb-3`}>
+            <span className={`w-1.5 h-1.5 rounded-full ${config.dot} ${isPresent ? config.glow : ""}`} />
+            <span className={`text-[10px] font-display font-bold tracking-wider uppercase ${config.text}`}>
+              {exp.type}
             </span>
-          )}
-        </div>
+          </div>
 
-        <AnimatePresence>
-          {exp.description && expanded && (
-            <motion.p
-              initial={{ opacity: 0, height: 0, marginTop: 0 }}
-              animate={{ opacity: 1, height: "auto", marginTop: 12 }}
-              exit={{ opacity: 0, height: 0, marginTop: 0 }}
-              className="text-xs text-muted-foreground leading-relaxed font-body overflow-hidden"
-            >
-              {exp.description}
-            </motion.p>
-          )}
-        </AnimatePresence>
+          <h3 className={`font-display font-semibold text-[15px] leading-snug mb-1.5 transition-colors ${selected ? "text-primary" : "text-foreground group-hover:text-primary"}`}>
+            {exp.title}
+          </h3>
+
+          <div className="flex items-center gap-1.5 mb-1">
+            <Building2 size={12} className="text-muted-foreground/60" />
+            <span className="text-xs text-muted-foreground font-body">{exp.company}</span>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <Calendar size={12} className="text-muted-foreground/40" />
+            <span className="text-[11px] text-muted-foreground/60 font-body">{exp.period}</span>
+            {isPresent && (
+              <span className="relative flex h-1.5 w-1.5 ml-1">
+                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${config.dot} opacity-75`} />
+                <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${config.dot}`} />
+              </span>
+            )}
+          </div>
+
+          <AnimatePresence>
+            {selected && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="overflow-hidden"
+              >
+                <div className="mt-4 pt-3 border-t border-border/50">
+                  <p className="text-xs text-muted-foreground leading-relaxed font-body">
+                    {description}
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </motion.div>
     </motion.div>
   );
