@@ -73,7 +73,7 @@ const HeroSection = () => {
           <a href="https://github.com/thanishkaykb" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
             <Github size={20} />
           </a>
-          <a href="mailto:THANISHKA.YKB@GMAIL.COM" className="text-muted-foreground hover:text-primary transition-colors">
+          <a href="https://mail.google.com/mail/?view=cm&to=thanishka.ykb@gmail.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
             <Mail size={20} />
           </a>
         </motion.div>
