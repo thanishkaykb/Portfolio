@@ -10,7 +10,7 @@ const skillGroups = [
   {
     category: "Tools & Platforms",
     emoji: "🛠️",
-    skills: ["Microsoft Office", "Canva", "Git & GitHub", "VS Code", "Figma"],
+    skills: ["Microsoft Office", "Microsoft Word", "Canva", "Git & GitHub", "VS Code", "Figma"],
   },
   {
     category: "AI & Data",
@@ -25,7 +25,7 @@ const skillGroups = [
   {
     category: "Soft Skills",
     emoji: "🧠",
-    skills: ["Team Management", "Problem Solving", "Verbal Communication", "Leadership", "Time Management", "Multitasking"],
+    skills: ["Team Management", "Problem Solving", "Verbal Communication", "Leadership", "Time Management", "Multitasking", "Volunteering"],
   },
   {
     category: "Languages",

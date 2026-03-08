@@ -1,4 +1,5 @@
 import { Linkedin, Github, Mail } from "lucide-react";
+import { getEmailHref } from "@/lib/email";
 
 const FooterSection = () => (
   <footer className="border-t border-border px-6 py-8 md:px-12 lg:px-24 xl:px-32">
@@ -13,7 +14,7 @@ const FooterSection = () => (
         <a href="https://github.com/thanishkaykb" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
           <Github size={16} />
         </a>
-        <a href="mailto:thanishka.ykb@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
+        <a href={getEmailHref("thanishka.ykb@gmail.com")} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
           <Mail size={16} />
         </a>
       </div>
