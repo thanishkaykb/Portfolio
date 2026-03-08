@@ -9,8 +9,8 @@ const ContactSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const mailtoLink = `mailto:THANISHKA.YKB@GMAIL.COM?subject=${encodeURIComponent(form.subject || "Portfolio Contact")}&body=${encodeURIComponent(`Hi Thanishka,\n\nMy name is ${form.name}.\nEmail: ${form.email}\n\n${form.message}`)}`;
-    window.location.href = mailtoLink;
+    const gmailLink = `https://mail.google.com/mail/?view=cm&to=thanishka.ykb@gmail.com&su=${encodeURIComponent(form.subject || "Portfolio Contact")}&body=${encodeURIComponent(`Hi Thanishka,\n\nMy name is ${form.name}.\nEmail: ${form.email}\n\n${form.message}`)}`;
+    window.open(gmailLink, "_blank");
   };
 
   return (
