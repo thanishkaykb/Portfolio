@@ -114,7 +114,6 @@
     transform: translateY(-4px);
     box-shadow: 0 12px 40px hsl(0 0% 0% / 0.3), 0 0 20px hsl(172 66% 50% / 0.06);
   }
-  }
 
   /* Custom cursor - hide default on non-touch */
   @media (hover: hover) {
