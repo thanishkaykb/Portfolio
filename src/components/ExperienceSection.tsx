@@ -79,7 +79,7 @@ const getDescription = (exp: Role): string => {
 };
 
 const TimelineCard = ({ exp, index, isLeft }: { exp: Role; index: number; isLeft: boolean }) => {
-  const [selected, setSelected] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const config = typeConfig[exp.type] || fallbackConfig;
   const isPresent = exp.period.includes("Present");
   const description = getDescription(exp);
@@ -103,21 +103,19 @@ const TimelineCard = ({ exp, index, isLeft }: { exp: Role; index: number; isLeft
 
       <motion.div
         layout
-        onClick={() => setSelected(!selected)}
-        className={`relative w-full ml-8 md:ml-0 group rounded-xl border bg-card/80 backdrop-blur-sm cursor-pointer transition-colors duration-300 hover:bg-card overflow-hidden ${
-          selected ? `${config.border} shadow-lg` : `${config.border}`
-        }`}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        className={`relative w-full ml-8 md:ml-0 group rounded-xl border bg-card/80 backdrop-blur-sm cursor-default transition-colors duration-300 hover:bg-card overflow-hidden ${config.border}`}
         animate={{
-          scale: selected ? 1.04 : 1,
-          zIndex: selected ? 20 : 1,
+          scale: hovered ? 1.04 : 1,
+          zIndex: hovered ? 20 : 1,
         }}
-        whileHover={!selected ? { y: -3 } : {}}
-        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+        transition={{ type: "spring", stiffness: 200, damping: 25, mass: 0.8 }}
       >
         {/* Glow backdrop on select */}
         <motion.div
           className={`absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-glow-secondary/5`}
-          animate={{ opacity: selected ? 1 : 0 }}
+          animate={{ opacity: hovered ? 1 : 0 }}
           transition={{ duration: 0.3 }}
         />
 
@@ -130,7 +128,7 @@ const TimelineCard = ({ exp, index, isLeft }: { exp: Role; index: number; isLeft
             </span>
           </div>
 
-          <h3 className={`font-display font-semibold text-[15px] leading-snug mb-1.5 transition-colors ${selected ? "text-primary" : "text-foreground group-hover:text-primary"}`}>
+          <h3 className={`font-display font-semibold text-[15px] leading-snug mb-1.5 transition-colors ${hovered ? "text-primary" : "text-foreground group-hover:text-primary"}`}>
             {exp.title}
           </h3>
 
@@ -151,7 +149,7 @@ const TimelineCard = ({ exp, index, isLeft }: { exp: Role; index: number; isLeft
           </div>
 
           <AnimatePresence>
-            {selected && (
+            {hovered && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
