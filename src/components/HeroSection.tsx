@@ -91,7 +91,7 @@ const HeroSection = () => {
           {[
             { href: "https://www.linkedin.com/in/thanishka-yogesh-7496b637b", icon: Linkedin, label: "LinkedIn" },
             { href: "https://github.com/thanishkaykb", icon: Github, label: "GitHub" },
-            { href: "https://mail.google.com/mail/?view=cm&to=thanishka.ykb@gmail.com", icon: Mail, label: "Email" },
+            { href: "mailto:thanishka.ykb@gmail.com", icon: Mail, label: "Email" },
           ].map((social) => (
             <motion.a
               key={social.label}
