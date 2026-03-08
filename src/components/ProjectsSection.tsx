@@ -185,6 +185,7 @@ const ProjectCard = ({ project, index, isHovered, onHover, onLeave }: {
 const ProjectsSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <section id="projects" className="section-padding" ref={ref}>
@@ -205,7 +206,14 @@ const ProjectsSection = () => {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {projects.map((project, i) => (
-            <ProjectCard key={project.name} project={project} index={i} />
+            <ProjectCard
+              key={project.name}
+              project={project}
+              index={i}
+              isHovered={hoveredIndex === i}
+              onHover={() => setHoveredIndex(i)}
+              onLeave={() => setHoveredIndex(null)}
+            />
           ))}
         </div>
 
