@@ -115,7 +115,7 @@ const TimelineCard = ({ exp, index, isLeft }: { exp: Role; index: number; isLeft
         {/* Glow backdrop on select */}
         <motion.div
           className={`absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-glow-secondary/5`}
-          animate={{ opacity: selected ? 1 : 0 }}
+          animate={{ opacity: hovered ? 1 : 0 }}
           transition={{ duration: 0.3 }}
         />
 
