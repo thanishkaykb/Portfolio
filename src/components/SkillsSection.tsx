@@ -10,7 +10,7 @@ const skillGroups = [
   {
     category: "Tools & Platforms",
     emoji: "🛠️",
-    skills: ["Microsoft Office", "Microsoft Word", "Canva", "Git & GitHub", "VS Code", "Figma"],
+    skills: ["Microsoft Office", "Microsoft Word", "Canva", "CapCut", "Git & GitHub", "VS Code", "Figma"],
   },
   {
     category: "AI & Data",
