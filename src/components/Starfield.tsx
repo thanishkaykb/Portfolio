@@ -19,17 +19,16 @@ const Starfield = () => {
     resize();
     window.addEventListener("resize", resize);
 
-    const STAR_COUNT = 200;
-    const SPEED = 0.15;
+    const STAR_COUNT = 80;
+    const SPEED = 0.1;
 
-    // Initialize stars
     for (let i = 0; i < STAR_COUNT; i++) {
       stars.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        z: Math.random() * 3 + 0.5,
-        size: Math.random() * 2 + 0.5,
-        opacity: Math.random() * 0.6 + 0.2,
+        z: Math.random() * 2 + 0.5,
+        size: Math.random() * 1.2 + 0.3,
+        opacity: Math.random() * 0.3 + 0.08,
       });
     }
 
