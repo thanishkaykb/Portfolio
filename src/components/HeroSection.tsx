@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail, Sparkles } from "lucide-react";
+import { getEmailHref } from "@/lib/email";
 
 const HeroSection = () => {
   return (
