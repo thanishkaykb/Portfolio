@@ -1,6 +1,6 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState, useMemo } from "react";
-import { Briefcase, Building2, Calendar, ChevronDown, Sparkles } from "lucide-react";
+import { Briefcase, Building2, Calendar, Sparkles } from "lucide-react";
 
 interface Role {
   title: string;
@@ -38,88 +38,81 @@ const experiences: Role[] = [
   { title: "YUCI Member", company: "Youth United Council of India (YUCI)", type: "Full-time", period: "Oct 2025 – Jan 2026" },
 ];
 
-const typeColors: Record<string, string> = {
-  "Full-time": "bg-primary/15 text-primary border-primary/30",
-  "Internship": "bg-glow-secondary/15 text-glow-secondary border-glow-secondary/30",
-  "Part-time": "bg-amber-500/15 text-amber-400 border-amber-500/30",
-  "Volunteer": "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-  "Freelance": "bg-rose-500/15 text-rose-400 border-rose-500/30",
-  "Hybrid": "bg-sky-500/15 text-sky-400 border-sky-500/30",
+const typeConfig: Record<string, { bg: string; dot: string; border: string; text: string; glow: string }> = {
+  "Full-time": { bg: "bg-primary/10", dot: "bg-primary", border: "border-primary/30", text: "text-primary", glow: "shadow-[0_0_12px_hsl(var(--primary)/0.4)]" },
+  "Internship": { bg: "bg-violet-500/10", dot: "bg-violet-400", border: "border-violet-400/30", text: "text-violet-400", glow: "shadow-[0_0_12px_hsl(260,60%,60%,0.4)]" },
+  "Part-time": { bg: "bg-amber-500/10", dot: "bg-amber-400", border: "border-amber-400/30", text: "text-amber-400", glow: "shadow-[0_0_12px_hsl(38,92%,50%,0.4)]" },
+  "Volunteer": { bg: "bg-emerald-500/10", dot: "bg-emerald-400", border: "border-emerald-400/30", text: "text-emerald-400", glow: "shadow-[0_0_12px_hsl(160,84%,39%,0.4)]" },
+  "Freelance": { bg: "bg-rose-500/10", dot: "bg-rose-400", border: "border-rose-400/30", text: "text-rose-400", glow: "shadow-[0_0_12px_hsl(350,89%,60%,0.4)]" },
+  "Hybrid": { bg: "bg-sky-500/10", dot: "bg-sky-400", border: "border-sky-400/30", text: "text-sky-400", glow: "shadow-[0_0_12px_hsl(199,89%,48%,0.4)]" },
 };
+
+const fallbackConfig = { bg: "bg-secondary", dot: "bg-muted-foreground", border: "border-border", text: "text-muted-foreground", glow: "" };
 
 const allTypes = ["All", ...Array.from(new Set(experiences.map((e) => e.type)))];
 
-const ExperienceCard = ({ exp, index }: { exp: Role; index: number }) => {
-  const [hovered, setHovered] = useState(false);
+const TimelineCard = ({ exp, index, isLeft }: { exp: Role; index: number; isLeft: boolean }) => {
+  const [expanded, setExpanded] = useState(false);
+  const config = typeConfig[exp.type] || fallbackConfig;
+  const isPresent = exp.period.includes("Present");
 
   return (
     <motion.div
-      layout
-      initial={{ opacity: 0, y: 20, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: -10, scale: 0.95 }}
-      transition={{ duration: 0.4, delay: index * 0.04 }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="group relative rounded-xl border border-border bg-card p-5 cursor-default transition-all duration-300 hover:border-primary/40 hover:shadow-[0_0_40px_hsl(var(--primary)/0.08)] overflow-hidden"
+      className={`relative flex ${isLeft ? "md:justify-end" : "md:justify-start"} md:w-[calc(50%-20px)] ${isLeft ? "md:ml-0" : "md:ml-auto"}`}
+      initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay: index * 0.03 }}
     >
-      {/* Hover glow effect */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-glow-secondary/5 rounded-xl"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: hovered ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
-      />
+      {/* Connector line to center - desktop */}
+      <div className={`hidden md:block absolute top-6 ${isLeft ? "right-0 translate-x-[20px]" : "left-0 -translate-x-[20px]"} w-[20px] h-px bg-border`} />
 
-      <div className="relative z-10">
-        <div className="flex items-start justify-between gap-3 mb-3">
-          <div className="flex items-center gap-2.5">
-            <motion.div
-              className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0"
-              animate={{ rotate: hovered ? 5 : 0, scale: hovered ? 1.05 : 1 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <Briefcase size={16} className="text-primary" />
-            </motion.div>
-            <div>
-              <h3 className="font-display font-semibold text-foreground text-sm leading-tight group-hover:text-primary transition-colors">
-                {exp.title}
-              </h3>
-              <div className="flex items-center gap-1.5 mt-0.5">
-                <Building2 size={11} className="text-muted-foreground" />
-                <p className="text-xs text-muted-foreground">{exp.company}</p>
-              </div>
-            </div>
-          </div>
-          <span className={`text-[10px] font-display font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full border shrink-0 ${typeColors[exp.type] || "bg-secondary text-secondary-foreground border-border"}`}>
+      <motion.div
+        onClick={() => exp.description && setExpanded(!expanded)}
+        className={`relative w-full ml-8 md:ml-0 group rounded-xl border ${config.border} bg-card/80 backdrop-blur-sm p-5 transition-all duration-300 hover:bg-card ${exp.description ? "cursor-pointer" : "cursor-default"}`}
+        whileHover={{ y: -3, transition: { duration: 0.2 } }}
+      >
+        {/* Type badge */}
+        <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full ${config.bg} ${config.border} border mb-3`}>
+          <span className={`w-1.5 h-1.5 rounded-full ${config.dot} ${isPresent ? config.glow : ""}`} />
+          <span className={`text-[10px] font-display font-bold tracking-wider uppercase ${config.text}`}>
             {exp.type}
           </span>
         </div>
 
-        <div className="flex items-center gap-1.5 ml-[46px]">
-          <Calendar size={11} className="text-muted-foreground/70" />
-          <span className="text-[11px] text-muted-foreground/70 font-body">{exp.period}</span>
-          {exp.period.includes("Present") && (
-            <span className="relative flex h-2 w-2 ml-1">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+        <h3 className="font-display font-semibold text-foreground text-[15px] leading-snug group-hover:text-primary transition-colors mb-1.5">
+          {exp.title}
+        </h3>
+
+        <div className="flex items-center gap-1.5 mb-1">
+          <Building2 size={12} className="text-muted-foreground/60" />
+          <span className="text-xs text-muted-foreground font-body">{exp.company}</span>
+        </div>
+
+        <div className="flex items-center gap-1.5">
+          <Calendar size={12} className="text-muted-foreground/40" />
+          <span className="text-[11px] text-muted-foreground/60 font-body">{exp.period}</span>
+          {isPresent && (
+            <span className="relative flex h-1.5 w-1.5 ml-1">
+              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${config.dot} opacity-75`} />
+              <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${config.dot}`} />
             </span>
           )}
         </div>
 
         <AnimatePresence>
-          {exp.description && hovered && (
+          {exp.description && expanded && (
             <motion.p
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="text-xs text-muted-foreground mt-3 ml-[46px] leading-relaxed font-body"
+              initial={{ opacity: 0, height: 0, marginTop: 0 }}
+              animate={{ opacity: 1, height: "auto", marginTop: 12 }}
+              exit={{ opacity: 0, height: 0, marginTop: 0 }}
+              className="text-xs text-muted-foreground leading-relaxed font-body overflow-hidden"
             >
               {exp.description}
             </motion.p>
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
     </motion.div>
   );
 };
@@ -128,19 +121,15 @@ const ExperienceSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [activeFilter, setActiveFilter] = useState("All");
-  const [showAll, setShowAll] = useState(false);
 
   const filtered = useMemo(
     () => activeFilter === "All" ? experiences : experiences.filter((e) => e.type === activeFilter),
     [activeFilter]
   );
 
-  const displayed = showAll ? filtered : filtered.slice(0, 9);
-  const hasMore = filtered.length > 9;
-
   return (
-    <section id="experience" className="section-padding" ref={ref}>
-      <div className="max-w-6xl mx-auto">
+    <section id="experience" className="section-padding overflow-hidden" ref={ref}>
+      <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -158,58 +147,73 @@ const ExperienceSection = () => {
           </p>
         </motion.div>
 
-        {/* Filter tabs */}
+        {/* Filter pills */}
         <motion.div
-          className="flex flex-wrap gap-2 mb-8"
+          className="flex flex-wrap gap-2 mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           {allTypes.map((type) => {
+            const config = typeConfig[type] || fallbackConfig;
             const count = type === "All" ? experiences.length : experiences.filter((e) => e.type === type).length;
+            const isActive = activeFilter === type;
+
             return (
-              <button
+              <motion.button
                 key={type}
-                onClick={() => { setActiveFilter(type); setShowAll(false); }}
-                className={`relative px-4 py-2 rounded-full text-xs font-display font-medium transition-all duration-300 ${
-                  activeFilter === type
-                    ? "bg-primary text-primary-foreground shadow-[0_0_20px_hsl(var(--primary)/0.3)]"
-                    : "bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80"
+                onClick={() => setActiveFilter(type)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`relative flex items-center gap-2 px-4 py-2 rounded-full text-xs font-display font-semibold transition-all duration-300 border ${
+                  isActive
+                    ? type === "All"
+                      ? "bg-primary text-primary-foreground border-primary shadow-[0_0_20px_hsl(var(--primary)/0.3)]"
+                      : `${config.bg} ${config.text} ${config.border} ${config.glow}`
+                    : "bg-card text-muted-foreground border-border hover:border-muted-foreground/30"
                 }`}
               >
+                {type !== "All" && (
+                  <span className={`w-2 h-2 rounded-full ${isActive ? config.dot : "bg-muted-foreground/40"}`} />
+                )}
                 {type}
-                <span className="ml-1.5 opacity-60">{count}</span>
-              </button>
+                <span className="opacity-50 text-[10px]">{count}</span>
+              </motion.button>
             );
           })}
         </motion.div>
 
-        {/* Cards grid */}
-        <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <AnimatePresence mode="popLayout">
-            {displayed.map((exp, i) => (
-              <ExperienceCard key={`${exp.title}-${exp.company}`} exp={exp} index={i} />
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        {/* Timeline */}
+        <div className="relative">
+          {/* Center line */}
+          <div className="absolute left-[15px] md:left-1/2 md:-translate-x-px top-0 bottom-0 w-px">
+            <div className="w-full h-full bg-gradient-to-b from-primary/40 via-border to-border" />
+          </div>
 
-        {/* Show more */}
-        {hasMore && !showAll && (
-          <motion.div
-            className="text-center mt-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            <button
-              onClick={() => setShowAll(true)}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary text-muted-foreground hover:text-foreground font-display text-sm transition-all hover:bg-secondary/80 hover:shadow-[0_0_15px_hsl(var(--primary)/0.1)]"
-            >
-              Show all {filtered.length} roles
-              <ChevronDown size={14} />
-            </button>
-          </motion.div>
-        )}
+          {/* Timeline start dot */}
+          <div className="absolute left-[9px] md:left-1/2 md:-translate-x-[6px] -top-1 w-3 h-3 rounded-full bg-primary shadow-[0_0_12px_hsl(var(--primary)/0.5)]" />
+
+          <div className="space-y-5 relative">
+            <AnimatePresence mode="popLayout">
+              {filtered.map((exp, i) => (
+                <div key={`${exp.title}-${exp.company}`} className="relative">
+                  {/* Timeline dot - mobile */}
+                  <div className="md:hidden absolute left-[9px] top-6 z-10">
+                    <div className={`w-3 h-3 rounded-full border-2 border-background ${(typeConfig[exp.type] || fallbackConfig).dot}`} />
+                  </div>
+                  {/* Timeline dot - desktop */}
+                  <div className="hidden md:block absolute left-1/2 -translate-x-[6px] top-6 z-10">
+                    <div className={`w-3 h-3 rounded-full border-2 border-background ${(typeConfig[exp.type] || fallbackConfig).dot} transition-all`} />
+                  </div>
+                  <TimelineCard exp={exp} index={i} isLeft={i % 2 === 0} />
+                </div>
+              ))}
+            </AnimatePresence>
+          </div>
+
+          {/* Timeline end dot */}
+          <div className="absolute left-[9px] md:left-1/2 md:-translate-x-[6px] -bottom-1 w-3 h-3 rounded-full bg-border" />
+        </div>
       </div>
     </section>
   );
