@@ -27,6 +27,11 @@ const skillGroups = [
     emoji: "🧠",
     skills: ["Team Management", "Problem Solving", "Verbal Communication", "Leadership", "Time Management", "Multitasking"],
   },
+  {
+    category: "Languages",
+    emoji: "🌐",
+    skills: ["English", "Tamil", "Hindi", "Telugu"],
+  },
 ];
 
 const SkillPill = ({ skill, delay }: { skill: string; delay: number }) => {
