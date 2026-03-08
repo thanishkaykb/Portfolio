@@ -30,7 +30,7 @@ const skillGroups = [
   {
     category: "Languages",
     emoji: "🌐",
-    skills: ["English", "Tamil", "Hindi", "Telugu"],
+    skills: ["English — Speak & Write", "Tamil — Speak & Write", "Telugu — Native (Speak)", "Hindi — Conversational"],
   },
 ];
 
