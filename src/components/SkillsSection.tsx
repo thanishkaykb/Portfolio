@@ -4,7 +4,7 @@ import { useRef } from "react";
 const skillGroups = [
   {
     category: "Development",
-    skills: ["Python", "HTML/CSS", "JavaScript", "TypeScript", "React", "Node.js", "Express", "MySQL", "Full Stack Development", "Web Development"],
+    skills: ["C", "Python", "HTML/CSS", "JavaScript", "TypeScript", "React", "Node.js", "Express", "MySQL", "Full Stack Development", "Web Development"],
   },
   {
     category: "Tools & Platforms",
