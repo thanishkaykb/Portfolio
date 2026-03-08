@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Linkedin, Github, Mail, Phone, Palette, PenLine, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { getEmailHref } from "@/lib/email";
 
 const links = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/thanishka-yogesh-7496b637b", icon: Linkedin, color: "from-[hsl(210,80%,45%)] to-[hsl(210,90%,55%)]" },
