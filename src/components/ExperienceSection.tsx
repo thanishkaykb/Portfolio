@@ -128,7 +128,7 @@ const TimelineCard = ({ exp, index, isLeft }: { exp: Role; index: number; isLeft
             </span>
           </div>
 
-          <h3 className={`font-display font-semibold text-[15px] leading-snug mb-1.5 transition-colors ${selected ? "text-primary" : "text-foreground group-hover:text-primary"}`}>
+          <h3 className={`font-display font-semibold text-[15px] leading-snug mb-1.5 transition-colors ${hovered ? "text-primary" : "text-foreground group-hover:text-primary"}`}>
             {exp.title}
           </h3>
 
