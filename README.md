@@ -1,6 +1,6 @@
 # 🌐 Personal Portfolio Website
 
-This repository contains my personal portfolio website created using HTML and CSS.  
+This repository contains my personal portfolio website created using HTML and CSS and loveable. 
 The portfolio showcases my education, skills, internships, campus ambassador roles, achievements, courses completed, and contact details.
 
 ---
