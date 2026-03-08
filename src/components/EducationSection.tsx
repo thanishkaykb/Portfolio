@@ -18,7 +18,7 @@ const education = [
     school: "Alwin Memorial Public School",
     degree: "High School — Computer Science with Math",
     period: "Graduated March 2024",
-    details: ["10th: 71%", "12th: 74.8%", "School Bus Management System — Team Lead (Capstone Project)"],
+    details: ["10th: 71.5%", "12th: 74.8%", "School Bus Management System — Team Lead (Capstone Project)"],
   },
   {
     school: "The Lords' International School",
