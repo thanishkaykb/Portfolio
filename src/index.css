@@ -57,6 +57,7 @@
 
   body {
     @apply bg-background text-foreground font-body antialiased;
+    scroll-behavior: smooth;
   }
 
   ::selection {
@@ -73,6 +74,9 @@
     background: hsl(172 66% 50% / 0.3);
     border-radius: 3px;
   }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(172 66% 50% / 0.5);
+  }
 }
 
 @layer utilities {
@@ -82,17 +86,32 @@
   }
 
   .glass {
-    background: hsl(220 18% 10% / 0.6);
-    backdrop-filter: blur(20px);
+    background: hsl(220 18% 10% / 0.7);
+    backdrop-filter: blur(24px) saturate(1.2);
     border: 1px solid hsl(220 14% 18% / 0.5);
   }
 
   .glow-border {
-    border: 1px solid hsl(172 66% 50% / 0.2);
-    box-shadow: 0 0 20px hsl(172 66% 50% / 0.05);
+    border: 1px solid hsl(172 66% 50% / 0.15);
+    box-shadow: 0 0 20px hsl(172 66% 50% / 0.04);
+    transition: all 0.3s ease;
+  }
+
+  .glow-border:hover {
+    border-color: hsl(172 66% 50% / 0.35);
+    box-shadow: 0 0 30px hsl(172 66% 50% / 0.08), 0 4px 20px hsl(0 0% 0% / 0.2);
   }
 
   .section-padding {
     @apply px-6 py-20 md:px-12 lg:px-24 xl:px-32;
+  }
+
+  /* Interactive card lift */
+  .card-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px hsl(0 0% 0% / 0.3), 0 0 20px hsl(172 66% 50% / 0.06);
   }
 }
