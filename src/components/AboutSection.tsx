@@ -1,12 +1,12 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { Code2, Rocket, Globe, Heart } from "lucide-react";
 
 const stats = [
-  { value: "15+", label: "Roles & Positions" },
-  { value: "10+", label: "Organizations" },
-  { value: "4", label: "Languages Spoken" },
-  { value: "2029", label: "Expected Grad" },
+  { value: "25+", label: "Roles & Positions", icon: Rocket },
+  { value: "15+", label: "Organizations", icon: Globe },
+  { value: "4", label: "Languages Spoken", icon: Heart },
+  { value: "2029", label: "Expected Grad", icon: Code2 },
 ];
 
 const AboutSection = () => {
@@ -52,11 +52,13 @@ const AboutSection = () => {
             {stats.map((s, i) => (
               <motion.div
                 key={s.label}
-                className="glow-border rounded-lg p-5 bg-card"
+                className="glow-border rounded-xl p-5 bg-card card-lift group cursor-default"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={inView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
+                whileHover={{ scale: 1.03 }}
               >
+                <s.icon size={18} className="text-primary mb-3 group-hover:scale-110 transition-transform" />
                 <p className="text-3xl font-display font-bold text-primary mb-1">{s.value}</p>
                 <p className="text-sm text-muted-foreground">{s.label}</p>
               </motion.div>
