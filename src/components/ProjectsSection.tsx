@@ -98,40 +98,88 @@ const projects = [
   },
 ];
 
-const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => (
-  <motion.a
-    href={project.repo}
-    target="_blank"
-    rel="noopener noreferrer"
+const ProjectCard = ({ project, index, isHovered, onHover, onLeave }: { 
+  project: typeof projects[0]; index: number; isHovered: boolean; onHover: () => void; onLeave: () => void;
+}) => (
+  <motion.div
+    layout
+    onMouseEnter={onHover}
+    onMouseLeave={onLeave}
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-40px" }}
     transition={{ duration: 0.5, delay: index * 0.06 }}
-    className={`group relative block rounded-xl border border-border bg-card p-6 hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_30px_hsl(var(--primary)/0.1)] ${project.featured ? "md:col-span-1" : ""}`}
+    animate={{
+      scale: isHovered ? 1.06 : 1,
+      zIndex: isHovered ? 30 : 1,
+    }}
+    className={`group relative rounded-xl border bg-card overflow-hidden transition-colors duration-300 ${
+      isHovered
+        ? "border-primary/50 shadow-[0_8px_50px_hsl(var(--primary)/0.15),0_0_0_1px_hsl(var(--primary)/0.2)]"
+        : "border-border hover:border-primary/30"
+    }`}
+    style={{ transformOrigin: "center center" }}
   >
-    {project.featured && (
-      <span className="absolute top-4 right-4 text-[10px] font-display font-bold tracking-widest uppercase text-primary bg-primary/10 px-2 py-0.5 rounded-full">
-        Featured
-      </span>
-    )}
-    <div className="flex items-start gap-3 mb-3">
-      <Github size={18} className="text-muted-foreground mt-0.5 shrink-0 group-hover:text-primary transition-colors" />
-      <h3 className="font-display font-semibold text-foreground group-hover:text-primary transition-colors text-sm leading-tight">
-        {project.name}
-      </h3>
-    </div>
-    <p className="text-muted-foreground text-xs leading-relaxed mb-4 font-body">
-      {project.desc}
-    </p>
-    <div className="flex flex-wrap gap-1.5">
-      {project.tech.map((t) => (
-        <span key={t} className="text-[10px] font-display font-medium text-primary/80 bg-primary/5 border border-primary/10 px-2 py-0.5 rounded-full">
-          {t}
+    {/* Glow overlay on hover */}
+    <motion.div
+      className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-glow-secondary/5 pointer-events-none"
+      animate={{ opacity: isHovered ? 1 : 0 }}
+      transition={{ duration: 0.3 }}
+    />
+
+    <div className="relative z-10 p-6">
+      {project.featured && (
+        <span className="absolute top-4 right-4 text-[10px] font-display font-bold tracking-widest uppercase text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+          Featured
         </span>
-      ))}
+      )}
+      <div className="flex items-start gap-3 mb-3">
+        <Github size={18} className={`mt-0.5 shrink-0 transition-colors ${isHovered ? "text-primary" : "text-muted-foreground"}`} />
+        <h3 className={`font-display font-semibold text-sm leading-tight transition-colors ${isHovered ? "text-primary" : "text-foreground"}`}>
+          {project.name}
+        </h3>
+      </div>
+      <p className="text-muted-foreground text-xs leading-relaxed mb-4 font-body">
+        {project.desc}
+      </p>
+
+      <div className="flex flex-wrap gap-1.5 mb-4">
+        {project.tech.map((t) => (
+          <span key={t} className={`text-[10px] font-display font-medium px-2 py-0.5 rounded-full transition-all duration-300 ${
+            isHovered
+              ? "text-primary bg-primary/10 border border-primary/20"
+              : "text-primary/80 bg-primary/5 border border-primary/10"
+          }`}>
+            {t}
+          </span>
+        ))}
+      </div>
+
+      {/* Expanded CTA on hover */}
+      <AnimatePresence>
+        {isHovered && (
+          <motion.a
+            href={project.repo}
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.2 }}
+            className="inline-flex items-center gap-1.5 text-xs font-display font-semibold text-primary hover:underline"
+            onClick={(e) => e.stopPropagation()}
+          >
+            View on GitHub
+            <ArrowUpRight size={12} />
+          </motion.a>
+        )}
+      </AnimatePresence>
+
+      {!isHovered && (
+        <ExternalLink size={14} className="absolute bottom-5 right-5 text-muted-foreground/40" />
+      )}
     </div>
-    <ExternalLink size={14} className="absolute bottom-5 right-5 text-muted-foreground/40 group-hover:text-primary transition-colors" />
-  </motion.a>
+  </motion.div>
 );
 
 const ProjectsSection = () => {
