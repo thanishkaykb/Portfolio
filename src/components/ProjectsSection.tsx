@@ -105,15 +105,14 @@ const ProjectCard = ({ project, index, isHovered, onHover, onLeave }: {
     layout
     onMouseEnter={onHover}
     onMouseLeave={onLeave}
-    initial={{ opacity: 0, y: 30 }}
+    initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-40px" }}
-    transition={{ duration: 0.5, delay: index * 0.06 }}
     animate={{
       scale: isHovered ? 1.03 : 1,
       zIndex: isHovered ? 30 : 1,
     }}
-    transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1], delay: index * 0.06 }}
+    transition={{ type: "spring", stiffness: 200, damping: 25, mass: 0.8 }}
     className={`group relative rounded-xl border bg-card overflow-hidden transition-colors duration-500 ${
       isHovered
         ? "border-primary/50 shadow-[0_8px_50px_hsl(var(--primary)/0.15),0_0_0_1px_hsl(var(--primary)/0.2)]"
