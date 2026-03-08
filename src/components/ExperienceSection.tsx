@@ -174,12 +174,8 @@ const TimelineCard = ({ exp, index, isLeft }: { exp: Role; index: number; isLeft
 const ExperienceSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [activeFilter, setActiveFilter] = useState("All");
 
-  const filtered = useMemo(
-    () => activeFilter === "All" ? experiences : experiences.filter((e) => e.type === activeFilter),
-    [activeFilter]
-  );
+  const filtered = experiences;
 
   return (
     <section id="experience" className="section-padding overflow-hidden" ref={ref}>
@@ -201,41 +197,6 @@ const ExperienceSection = () => {
           </p>
         </motion.div>
 
-        {/* Filter pills */}
-        <motion.div
-          className="flex flex-wrap gap-2 mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          {allTypes.map((type) => {
-            const config = typeConfig[type] || fallbackConfig;
-            const count = type === "All" ? experiences.length : experiences.filter((e) => e.type === type).length;
-            const isActive = activeFilter === type;
-
-            return (
-              <motion.button
-                key={type}
-                onClick={() => setActiveFilter(type)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`relative flex items-center gap-2 px-4 py-2 rounded-full text-xs font-display font-semibold transition-all duration-300 border ${
-                  isActive
-                    ? type === "All"
-                      ? "bg-primary text-primary-foreground border-primary shadow-[0_0_20px_hsl(var(--primary)/0.3)]"
-                      : `${config.bg} ${config.text} ${config.border} ${config.glow}`
-                    : "bg-card text-muted-foreground border-border hover:border-muted-foreground/30"
-                }`}
-              >
-                {type !== "All" && (
-                  <span className={`w-2 h-2 rounded-full ${isActive ? config.dot : "bg-muted-foreground/40"}`} />
-                )}
-                {type}
-                <span className="opacity-50 text-[10px]">{count}</span>
-              </motion.button>
-            );
-          })}
-        </motion.div>
 
 
         {/* Timeline */}
