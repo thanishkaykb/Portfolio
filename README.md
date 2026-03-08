@@ -25,16 +25,6 @@ I am an organized and dependable undergraduate student with a strong interest in
 
 ---
 
-## 📂 Project Structure
-
-portfolio/  
-│── index.html  
-│── style.css  
-│── ThanishkaYogesh026.jpeg  
-│── README.md  
-
----
-
 ## ✨ Features
 
 - Personal introduction with profile image  
