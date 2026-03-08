@@ -15,10 +15,29 @@ const links = [
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 50);
+
+      // Determine active section based on scroll position
+      const sections = links.map((l) => l.href.replace("#", ""));
+      let current = "home";
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 120) {
+            current = id;
+          }
+        }
+      }
+      setActiveSection(current);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -33,11 +52,29 @@ const Navbar = () => {
         <a href="#home" className="font-display font-bold text-lg text-gradient">TY</a>
 
         <div className="hidden md:flex items-center gap-8">
-          {links.map((l) => (
-            <a key={l.href} href={l.href} className="text-sm text-muted-foreground hover:text-primary transition-colors font-display">
-              {l.label}
-            </a>
-          ))}
+          {links.map((l) => {
+            const isActive = activeSection === l.href.replace("#", "");
+            return (
+              <a
+                key={l.href}
+                href={l.href}
+                className={`text-sm font-display transition-colors relative ${
+                  isActive
+                    ? "text-primary font-semibold"
+                    : "text-muted-foreground hover:text-primary"
+                }`}
+              >
+                {l.label}
+                {isActive && (
+                  <motion.span
+                    layoutId="navbar-underline"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+              </a>
+            );
+          })}
         </div>
 
         <button className="md:hidden text-foreground" onClick={() => setOpen(!open)}>
@@ -51,11 +88,21 @@ const Navbar = () => {
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
         >
-          {links.map((l) => (
-            <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-sm text-muted-foreground hover:text-primary transition-colors font-display py-2">
-              {l.label}
-            </a>
-          ))}
+          {links.map((l) => {
+            const isActive = activeSection === l.href.replace("#", "");
+            return (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className={`text-sm font-display py-2 transition-colors ${
+                  isActive ? "text-primary font-semibold" : "text-muted-foreground hover:text-primary"
+                }`}
+              >
+                {l.label}
+              </a>
+            );
+          })}
         </motion.div>
       )}
     </motion.nav>
