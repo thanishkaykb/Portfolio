@@ -1,16 +1,38 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Mail, Linkedin, Github, Send, MapPin, Phone } from "lucide-react";
+import { Mail, Linkedin, Github, Send, MapPin, Phone, CheckCircle } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const ContactSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const gmailLink = `https://mail.google.com/mail/?view=cm&to=thanishka.ykb@gmail.com&su=${encodeURIComponent(form.subject || "Portfolio Contact")}&body=${encodeURIComponent(`Hi Thanishka,\n\nMy name is ${form.name}.\nEmail: ${form.email}\n\n${form.message}`)}`;
-    window.open(gmailLink, "_blank");
+    setSending(true);
+    setError("");
+
+    const { error: dbError } = await supabase.from("contact_messages").insert({
+      name: form.name.trim(),
+      email: form.email.trim(),
+      subject: form.subject.trim() || null,
+      message: form.message.trim(),
+    });
+
+    setSending(false);
+
+    if (dbError) {
+      setError("Something went wrong. Please try again.");
+      return;
+    }
+
+    setSent(true);
+    setForm({ name: "", email: "", subject: "", message: "" });
+    setTimeout(() => setSent(false), 5000);
   };
 
   return (
@@ -113,13 +135,26 @@ const ContactSection = () => {
               onChange={(e) => setForm({ ...form, message: e.target.value })}
               className="w-full px-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors text-sm font-body resize-none"
             />
-            <button
-              type="submit"
-              className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-display font-semibold text-sm rounded-lg hover:opacity-90 transition-opacity"
-            >
-              <Send size={16} />
-              Send Message
-            </button>
+
+            {error && (
+              <p className="text-sm text-destructive font-body">{error}</p>
+            )}
+
+            {sent ? (
+              <div className="flex items-center gap-2 text-primary font-display font-semibold text-sm">
+                <CheckCircle size={16} />
+                Message sent successfully!
+              </div>
+            ) : (
+              <button
+                type="submit"
+                disabled={sending}
+                className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-display font-semibold text-sm rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
+              >
+                <Send size={16} />
+                {sending ? "Sending..." : "Send Message"}
+              </button>
+            )}
           </motion.form>
         </div>
       </div>
