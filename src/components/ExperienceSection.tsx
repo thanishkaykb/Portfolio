@@ -192,7 +192,7 @@ const ExperienceSection = () => {
             Where I've <span className="text-gradient">Contributed</span>
           </h2>
           <p className="text-muted-foreground font-body text-sm mb-8 max-w-xl">
-            {experiences.length} roles across tech, design, and community leadership — from Google to grassroots communities.
+            20+ roles & positions across 15+ organizations — from Google to grassroots communities.
           </p>
         </motion.div>
 
