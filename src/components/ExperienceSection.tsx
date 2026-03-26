@@ -11,21 +11,28 @@ interface Role {
 }
 
 const experiences: Role[] = [
-  { title: "Design Intern", company: "KM UniTech", type: "Internship", period: "Jan 2026 – Present" },
-  { title: "Volunteer", company: "CodeSapiens - Student Community of Coders", type: "Volunteer", period: "Feb 2026 – Present" },
+  // Campus Ambassadors
   { title: "Campus Ambassador", company: "HCL GUVI", type: "Internship", period: "Jan 2026 – Present" },
-  { title: "Campus Ambassador", company: "Zyra Academy", type: "Internship", period: "Jan 2026 – Present" },
-  { title: "Event Coordinator & Social Media Manager", company: "IGNITERS", type: "Part-time", period: "Jan 2026 – Present" },
-  { title: "Full-Stack Web Development Intern", company: "Prodigy InfoTech", type: "Internship", period: "Jan 2026 – Feb 2026" },
   { title: "Google Student Ambassador", company: "Google", type: "Internship", period: "Dec 2025 – Present" },
+  { title: "Campus Ambassador", company: "Zyra Academy", type: "Internship", period: "Jan 2026 – Present" },
+  // Event & Community
+  { title: "Event Coordinator & Social Media Manager", company: "IGNITERS", type: "Part-time", period: "Jan 2026 – Present" },
+  // Volunteers
+  { title: "Student Volunteer", company: "CodeSapiens - Student Community of Coders", type: "Volunteer", period: "Feb 2026 – Present" },
+  { title: "UBA Member / Volunteer", company: "Unnat Bharat Abhiyan (UBA)", type: "Hybrid", period: "Oct 2025 – Present" },
+  // Marketing
+  { title: "Marketing Team Lead", company: "KM UniTech", type: "Part-time", period: "Jan 2026 – Present" },
+  // Internships
   { title: "Campus Ambassador for Backwaters'26", company: "IIM Kozhikode", type: "Part-time", period: "Dec 2025 – Present" },
+  { title: "Full-Stack Web Development Intern", company: "Prodigy InfoTech", type: "Internship", period: "Jan 2026 – Feb 2026" },
   { title: "Web Dev & Designing Intern", company: "Oasis Infobyte", type: "Internship", period: "Dec 2025 – Jan 2026" },
   { title: "Python Programming Intern", company: "Oasis Infobyte", type: "Internship", period: "Dec 2025 – Jan 2026" },
-  { title: "AI Intern", company: "CodeAlpha", type: "Internship", period: "Dec 2025 – Jan 2026" },
+  { title: "Artificial Intelligence Intern", company: "CodeAlpha", type: "Internship", period: "Dec 2025 – Jan 2026" },
   { title: "App Development Intern", company: "CodeAlpha", type: "Internship", period: "Dec 2025 – Jan 2026" },
   { title: "HR Intern", company: "Missile Man Scientific & Research Publications", type: "Internship", period: "Dec 2025 – Present" },
+  { title: "Design Intern", company: "KM UniTech", type: "Internship", period: "Jan 2026 – Present" },
+  // Design & Teams
   { title: "Design Team Member", company: "Unnat Bharat Abhiyan (UBA)", type: "Full-time", period: "Jan 2026 – Present" },
-  { title: "UBA Member / Volunteer", company: "Unnat Bharat Abhiyan (UBA)", type: "Hybrid", period: "Oct 2025 – Present" },
   { title: "Poster Team Member", company: "Youth United Council of India (YUCI)", type: "Freelance", period: "Dec 2025 – Jan 2026" },
   { title: "YUCI Member", company: "Youth United Council of India (YUCI)", type: "Full-time", period: "Oct 2025 – Jan 2026" },
 ];
@@ -47,7 +54,7 @@ const roleDescriptions: Record<string, string> = {
   "Campus Ambassador Coordinator": "Coordinating campus ambassador activities, managing outreach programs, and building partnerships across colleges for KM UniTech.",
   "Marketing Team Lead": "Leading marketing strategies, content campaigns, and brand positioning for KM UniTech across digital platforms.",
   "Design Intern": "Creating visual assets, social media graphics, and brand collateral for KM UniTech's digital presence.",
-  "Volunteer": "Contributing to CodeSapiens community events, peer programming sessions, and collaborative coding initiatives.",
+  "Student Volunteer": "Contributing to CodeSapiens community events, peer programming sessions, and collaborative coding initiatives.",
   "Campus Ambassador|HCL GUVI": "Promoting GUVI's tech courses and bootcamps, organizing campus workshops, and bridging student-industry connections.",
   "Campus Ambassador|Zyra Academy": "Representing Zyra Academy on campus, driving student enrollments and awareness for their tech education programs.",
   "Founder & Community Owner": "A WhatsApp community sharing info about upcoming Events and Hackathons — connecting students with opportunities.",
@@ -56,7 +63,7 @@ const roleDescriptions: Record<string, string> = {
   "Google Student Ambassador": "Official Google Student Ambassador — promoting Google technologies, organizing workshops, and mentoring peers.",
   "Web Dev & Designing Intern": "Developed responsive websites and designed UI/UX interfaces during internship at Oasis Infobyte.",
   "Python Programming Intern": "Developed Python-based solutions and automation scripts during internship at Oasis Infobyte.",
-  "AI Intern": "Explored AI/ML models, built intelligent solutions, and contributed to AI research projects at CodeAlpha.",
+  "Artificial Intelligence Intern": "Explored AI/ML models, built intelligent solutions, and contributed to AI research projects at CodeAlpha.",
   "App Development Intern": "Designed and developed mobile application prototypes and features during internship at CodeAlpha.",
   "HR Intern": "Managing recruitment workflows, coordinating with teams, and handling documentation at Missile Man Scientific Publications.",
   "Design Team Member": "Creating posters, event visuals, and promotional content for Unnat Bharat Abhiyan (UBA) initiatives.",
