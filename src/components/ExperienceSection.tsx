@@ -11,21 +11,13 @@ interface Role {
 }
 
 const experiences: Role[] = [
-  { title: "Campus Ambassador Coordinator", company: "KM UniTech", type: "Full-time", period: "Feb 2026 – Present" },
-  { title: "Marketing Team Lead", company: "KM UniTech", type: "Full-time", period: "Feb 2026 – Present" },
   { title: "Design Intern", company: "KM UniTech", type: "Internship", period: "Jan 2026 – Present" },
   { title: "Volunteer", company: "CodeSapiens - Student Community of Coders", type: "Volunteer", period: "Feb 2026 – Present" },
   { title: "Campus Ambassador", company: "HCL GUVI", type: "Internship", period: "Jan 2026 – Present" },
   { title: "Campus Ambassador", company: "Zyra Academy", type: "Internship", period: "Jan 2026 – Present" },
-  { title: "Founder & Community Owner", company: "TS Hub", type: "Full-time", period: "Jan 2026 – Present", description: "A WhatsApp community sharing info about upcoming Events and Hackathons." },
   { title: "Event Coordinator & Social Media Manager", company: "IGNITERS", type: "Part-time", period: "Jan 2026 – Present" },
   { title: "Full-Stack Web Development Intern", company: "Prodigy InfoTech", type: "Internship", period: "Jan 2026 – Feb 2026" },
   { title: "Google Student Ambassador", company: "Google", type: "Internship", period: "Dec 2025 – Present" },
-  { title: "Campus Ambassador", company: "HYPEDIN", type: "Part-time", period: "Dec 2025 – Present" },
-  { title: "Campus Ambassador", company: "CampusCrew", type: "Part-time", period: "Dec 2025 – Present" },
-  { title: "Campus Ambassador", company: "White Devils Tech Community™", type: "Part-time", period: "Dec 2025 – Present" },
-  { title: "Campus Ambassador", company: "DAKH EDU SOLUTIONS", type: "Part-time", period: "Dec 2025 – Present" },
-  { title: "Campus Ambassador", company: "SmartED Innovations", type: "Part-time", period: "Dec 2025 – Present" },
   { title: "Campus Ambassador for Backwaters'26", company: "IIM Kozhikode", type: "Part-time", period: "Dec 2025 – Present" },
   { title: "Web Dev & Designing Intern", company: "Oasis Infobyte", type: "Internship", period: "Dec 2025 – Jan 2026" },
   { title: "Python Programming Intern", company: "Oasis Infobyte", type: "Internship", period: "Dec 2025 – Jan 2026" },
