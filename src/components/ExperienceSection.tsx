@@ -70,7 +70,7 @@ const roleDescriptions: Record<string, string> = {
   "App Development Intern": "Designed and developed mobile application prototypes and features during internship at CodeAlpha.",
   "HR Intern": "Managing recruitment workflows, coordinating with teams, and handling documentation at Missile Man Scientific Publications.",
   "Design Team Member": "Creating posters, event visuals, and promotional content for Unnat Bharat Abhiyan (UBA) initiatives.",
-  "UBA Member / Volunteer": "Volunteering for rural development and community outreach programs under Unnat Bharat Abhiyan.",
+  "UBA Volunteer": "Volunteering for rural development and community outreach programs under Unnat Bharat Abhiyan.",
   "Poster Team Member": "Designing event posters and marketing visuals for Youth United Council of India (YUCI) events.",
   "YUCI Member": "Active member contributing to YUCI's mission of youth empowerment and social development initiatives.",
 };
