@@ -3,8 +3,8 @@ import { useRef } from "react";
 import { Code2, Rocket, Globe, Heart } from "lucide-react";
 
 const stats = [
-  { value: "25+", label: "Roles & Positions", icon: Rocket },
-  { value: "15+", label: "Organizations", icon: Globe },
+  { value: "20+", label: "Roles & Positions", icon: Rocket },
+  { value: "10+", label: "Organizations", icon: Globe },
   { value: "4", label: "Languages Spoken", icon: Heart },
   { value: "2029", label: "Expected Grad", icon: Code2 },
 ];
