@@ -22,7 +22,7 @@ const experiences: Role[] = [
   // Volunteers
   { title: "Student Volunteer", company: "CodeSapiens - Student Community of Coders", type: "Volunteer", period: "Feb 2026 – Present" },
   { title: "Student Volunteer", company: "IEEE CS, RS & TEMS", type: "Volunteer", period: "Oct 2025 – Present", description: "Volunteering across IEEE Computer Society, IEEE Reliability Society, and IEEE Technology & Engineering Management Society chapters. Active volunteer in multiple communities, helping with event coordination, content creation, and organizational initiatives." },
-  { title: "UBA Member / Volunteer", company: "Unnat Bharat Abhiyan (UBA)", type: "Hybrid", period: "Oct 2025 – Present" },
+  { title: "UBA Volunteer", company: "Unnat Bharat Abhiyan (UBA)", type: "Hybrid", period: "Oct 2025 – Present" },
   { title: "Designer", company: "Digital Dreamers Den (D3)", type: "Part-time", period: "Mar 2026 – Present", description: "Creating visual designs, graphics, and creative content for Digital Dreamers Den (D3) community." },
   // Marketing
   { title: "Marketing Team Lead", company: "KM UniTech", type: "Part-time", period: "Jan 2026 – Present" },
@@ -70,7 +70,7 @@ const roleDescriptions: Record<string, string> = {
   "App Development Intern": "Designed and developed mobile application prototypes and features during internship at CodeAlpha.",
   "HR Intern": "Managing recruitment workflows, coordinating with teams, and handling documentation at Missile Man Scientific Publications.",
   "Design Team Member": "Creating posters, event visuals, and promotional content for Unnat Bharat Abhiyan (UBA) initiatives.",
-  "UBA Member / Volunteer": "Volunteering for rural development and community outreach programs under Unnat Bharat Abhiyan.",
+  "UBA Volunteer": "Volunteering for rural development and community outreach programs under Unnat Bharat Abhiyan.",
   "Poster Team Member": "Designing event posters and marketing visuals for Youth United Council of India (YUCI) events.",
   "YUCI Member": "Active member contributing to YUCI's mission of youth empowerment and social development initiatives.",
 };
