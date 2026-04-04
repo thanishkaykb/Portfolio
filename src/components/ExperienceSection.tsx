@@ -21,7 +21,7 @@ const experiences: Role[] = [
   { title: "Event Coordinator & Social Media Manager", company: "IGNITERS", type: "Part-time", period: "Jan 2026 – Present" },
   // Volunteers
   { title: "Student Volunteer", company: "CodeSapiens - Student Community of Coders", type: "Volunteer", period: "Feb 2026 – Present" },
-  { title: "Volunteer", company: "IEEE CS, Reliability Society & TEMS", type: "Volunteer", period: "Oct 2025 – Present", description: "Volunteering across IEEE Computer Society (Design Team Member), IEEE Reliability Society, and IEEE Technology & Engineering Management Society chapters." },
+  { title: "Student Volunteer", company: "IEEE CS, RS & TEMS", type: "Volunteer", period: "Oct 2025 – Present", description: "Volunteering across IEEE Computer Society, IEEE Reliability Society, and IEEE Technology & Engineering Management Society chapters. Active volunteer in multiple communities, helping with event coordination, content creation, and organizational initiatives." },
   { title: "UBA Member / Volunteer", company: "Unnat Bharat Abhiyan (UBA)", type: "Hybrid", period: "Oct 2025 – Present" },
   // Marketing
   { title: "Marketing Team Lead", company: "KM UniTech", type: "Part-time", period: "Jan 2026 – Present" },
