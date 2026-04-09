@@ -13,6 +13,7 @@ interface Role {
 const experiences: Role[] = [
   // Campus Ambassadors
   { title: "Campus Ambassador", company: "HCL GUVI", type: "Internship", period: "Jan 2026 – Present" },
+  { title: "Microsoft Student Ambassador", company: "Microsoft", type: "Internship", period: "Apr 2026 – Present", description: "Microsoft Learn Student Ambassador (MLSA) — a global group of campus leaders helping fellow students, creating robust tech communities, and developing technical and career skills." },
   { title: "Google Student Ambassador", company: "Google", type: "Internship", period: "Apr 2026 – Present", description: "Google Student Ambassador (2026 Cohort) — promoting Google technologies, organizing workshops, and mentoring peers." },
   { title: "Google Student Ambassador", company: "Google", type: "Internship", period: "Dec 2025 – Feb 2026", description: "Google Student Ambassador (2025 Cohort) — promoted Google technologies, organized workshops, and mentored peers." },
   { title: "Campus Ambassador for Backwaters'26", company: "IIM Kozhikode", type: "Part-time", period: "Dec 2025 – Present" },
