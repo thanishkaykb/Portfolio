@@ -39,7 +39,7 @@ const AboutSection = () => {
               My core domains are <span className="text-foreground font-semibold">Full Stack Development</span> and <span className="text-foreground font-semibold">Web Development</span>.
             </p>
             <p>
-              Beyond coding, I'm deeply involved in campus leadership — serving as Campus Ambassador for organizations like GOOGLE, HCL GUVI, MICROSOFT, and multiple tech communities.
+              Beyond coding, I'm deeply involved in campus leadership — serving as Campus Ambassador for organizations like <span className="text-foreground font-semibold">GOOGLE</span>, <span className="text-foreground font-semibold">HCL GUVI</span>, <span className="text-foreground font-semibold">MICROSOFT</span>, and multiple tech communities.
               I'm also the Founder of TS Hub, a WhatsApp community for events and hackathons.
             </p>
             <p>
