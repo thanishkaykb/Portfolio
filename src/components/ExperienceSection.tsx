@@ -34,7 +34,7 @@ const experiences: Role[] = [
   { title: "Python Programming Intern", company: "Oasis Infobyte", type: "Internship", period: "Dec 2025 – Jan 2026" },
   { title: "Artificial Intelligence Intern", company: "CodeAlpha", type: "Internship", period: "Dec 2025 – Jan 2026" },
   { title: "App Development Intern", company: "CodeAlpha", type: "Internship", period: "Dec 2025 – Jan 2026" },
-  { title: "HR Intern", company: "Missile Man Scientific & Research Publications", type: "Internship", period: "Dec 2025 – Present" },
+  { title: "HR Intern", company: "Missile Man Scientific & Research Publications", type: "Internship", period: "Dec 2025 – Mar 2026" },
   { title: "Design Intern", company: "KM UniTech", type: "Internship", period: "Jan 2026 – Present" },
   // Design & Teams
   { title: "Design Team Member", company: "Unnat Bharat Abhiyan (UBA)", type: "Full-time", period: "Jan 2026 – Present" },
