@@ -16,8 +16,8 @@ const experiences: Role[] = [
   { title: "Google Student Ambassador '26", company: "Google", type: "Internship", period: "Apr 2026 – Present", description: "Google Student Ambassador (2026 Cohort) — promoting Google technologies, organizing workshops, and mentoring peers." },
   { title: "Microsoft Student Ambassador", company: "Microsoft", type: "Internship", period: "Apr 2026 – Present", description: "Microsoft Learn Student Ambassador (MLSA) — a global group of campus leaders helping fellow students, creating robust tech communities, and developing technical and career skills." },
   { title: "Google Student Ambassador '25", company: "Google", type: "Internship", period: "Dec 2025 – Feb 2026", description: "Google Student Ambassador (2025 Cohort) — promoted Google technologies, organized workshops, and mentored peers." },
-  { title: "Campus Ambassador for Backwaters'26", company: "IIM Kozhikode", type: "Part-time", period: "Dec 2025 – Present" },
   { title: "Campus Ambassador", company: "IEEE EU-REKA", type: "Part-time", period: "Feb 2026 – Present", description: "Brand Ambassadorship and Social Media — representing IEEE EU-REKA on campus, promoting events, and managing social media outreach." },
+  { title: "Campus Ambassador for Backwaters'26", company: "IIM Kozhikode", type: "Part-time", period: "Dec 2025 – Present" },
   { title: "Campus Ambassador", company: "Zyra Academy", type: "Internship", period: "Jan 2026 – Present" },
   // Event & Community
   { title: "Event Coordinator & Social Media Manager", company: "IGNITERS", type: "Part-time", period: "Jan 2026 – Present" },
