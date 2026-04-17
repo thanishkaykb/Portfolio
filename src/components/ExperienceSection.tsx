@@ -17,11 +17,12 @@ const experiences: Role[] = [
   { title: "Microsoft Student Ambassador", company: "Microsoft", type: "Internship", period: "Apr 2026 – Present", description: "Microsoft Learn Student Ambassador (MLSA) — a global group of campus leaders helping fellow students, creating robust tech communities, and developing technical and career skills." },
   { title: "Google Student Ambassador '25", company: "Google", type: "Internship", period: "Dec 2025 – Feb 2026", description: "Google Student Ambassador (2025 Cohort) — promoted Google technologies, organized workshops, and mentored peers." },
   { title: "Campus Ambassador for Backwaters'26", company: "IIM Kozhikode", type: "Part-time", period: "Dec 2025 – Present" },
+  { title: "Campus Ambassador", company: "IEEE EU-REKA", type: "Part-time", period: "Feb 2026 – Present", description: "Brand Ambassadorship and Social Media — representing IEEE EU-REKA on campus, promoting events, and managing social media outreach." },
   { title: "Campus Ambassador", company: "Zyra Academy", type: "Internship", period: "Jan 2026 – Present" },
   // Event & Community
   { title: "Event Coordinator & Social Media Manager", company: "IGNITERS", type: "Part-time", period: "Jan 2026 – Present" },
   // Volunteers
-  { title: "Student Volunteer", company: "CodeSapiens - Student Community of Coders", type: "Volunteer", period: "Feb 2026 – Present" },
+  { title: "Student Volunteer", company: "CodeSapiens - Student Community of Coders", type: "Volunteer", period: "Feb 2026 – Apr 2026" },
   { title: "Student Volunteer", company: "IEEE CS, RS & TEMS", type: "Volunteer", period: "Oct 2025 – Present", description: "Volunteering across IEEE Computer Society, IEEE Reliability Society, and IEEE Technology & Engineering Management Society chapters. Active volunteer in multiple communities, helping with event coordination, content creation, and organizational initiatives." },
   { title: "UBA Volunteer", company: "Unnat Bharat Abhiyan (UBA)", type: "Hybrid", period: "Oct 2025 – Present" },
   { title: "Designer", company: "Digital Dreamers Den (D3)", type: "Part-time", period: "Mar 2026 – Present", description: "Creating visual designs, graphics, and creative content for Digital Dreamers Den (D3) community." },
