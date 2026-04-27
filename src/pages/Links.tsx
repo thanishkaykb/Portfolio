@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { getEmailHref } from "@/lib/email";
 
 const links = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/thanishka-yogesh-7496b637b", icon: Linkedin, color: "from-[hsl(210,80%,45%)] to-[hsl(210,90%,55%)]" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/thanishka-yogesh", icon: Linkedin, color: "from-[hsl(210,80%,45%)] to-[hsl(210,90%,55%)]" },
   { label: "GitHub", href: "https://github.com/thanishkaykb", icon: Github, color: "from-[hsl(0,0%,20%)] to-[hsl(0,0%,35%)]" },
   { label: "Art Account", href: "https://instagram.com", icon: Palette, color: "from-[hsl(330,80%,50%)] to-[hsl(20,90%,55%)]" },
   { label: "Poetry Account", href: "https://instagram.com", icon: PenLine, color: "from-[hsl(270,60%,50%)] to-[hsl(300,70%,60%)]" },
