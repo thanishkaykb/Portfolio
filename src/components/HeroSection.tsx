@@ -90,7 +90,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           {[
-            { href: "https://www.linkedin.com/in/thanishka-yogesh-7496b637b", icon: Linkedin, label: "LinkedIn" },
+            { href: "https://www.linkedin.com/in/thanishka-yogesh", icon: Linkedin, label: "LinkedIn" },
             { href: "https://github.com/thanishkaykb", icon: Github, label: "GitHub" },
             { href: getEmailHref("thanishka.ykb@gmail.com"), icon: Mail, label: "Email" },
           ].map((social) => (

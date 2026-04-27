@@ -19,6 +19,7 @@ const experiences: Role[] = [
   { title: "Campus Ambassador", company: "IEEE EU-REKA", type: "Part-time", period: "Feb 2026 – Present", description: "Brand Ambassadorship and Social Media — representing IEEE EU-REKA on campus, promoting events, and managing social media outreach." },
   { title: "Campus Ambassador for Backwaters'26", company: "IIM Kozhikode", type: "Part-time", period: "Dec 2025 – Present" },
   { title: "Campus Ambassador", company: "Zyra Academy", type: "Internship", period: "Jan 2026 – Present" },
+  { title: "Magic Member - Influencer", company: "IEEE SAIRAM SIGHT", type: "Part-time", period: "Apr 2026 – Present", description: "Magic Member - Influencer at IEEE SAIRAM SIGHT — driving community engagement through communication, leadership, and creative outreach (Onboarding Poster initiative)." },
   // Event & Community
   { title: "Event Coordinator & Social Media Manager", company: "IGNITERS", type: "Part-time", period: "Jan 2026 – Present" },
   // Volunteers

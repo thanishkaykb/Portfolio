@@ -95,7 +95,7 @@ const ContactSection = () => {
 
             <div className="flex gap-3 pt-4">
               {[
-                { href: "https://www.linkedin.com/in/thanishka-yogesh-7496b637b", icon: Linkedin },
+                { href: "https://www.linkedin.com/in/thanishka-yogesh", icon: Linkedin },
                 { href: "https://github.com/thanishkaykb", icon: Github },
               ].map((social) => (
                 <motion.a
