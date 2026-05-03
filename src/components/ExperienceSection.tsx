@@ -27,8 +27,6 @@ const experiences: Role[] = [
   { title: "Student Volunteer", company: "IEEE CS, RS, SIGHT & TEMS", type: "Volunteer", period: "Oct 2025 – Present", description: "Volunteering across IEEE Computer Society, IEEE Reliability Society, IEEE SIGHT, and IEEE Technology & Engineering Management Society chapters. Active volunteer in multiple communities, helping with event coordination, content creation, and organizational initiatives." },
   { title: "UBA Volunteer", company: "Unnat Bharat Abhiyan (UBA)", type: "Hybrid", period: "Oct 2025 – Present" },
   { title: "Designer", company: "Digital Dreamers Den (D3)", type: "Part-time", period: "Mar 2026 – Present", description: "Creating visual designs, graphics, and creative content for Digital Dreamers Den (D3) community." },
-  // Marketing
-  { title: "Marketing Team Lead", company: "KM UniTech", type: "Part-time", period: "Jan 2026 – Present" },
   // Internships
   { title: "Full-Stack Web Development Intern", company: "Prodigy InfoTech", type: "Internship", period: "Jan 2026 – Feb 2026" },
   { title: "Web Dev & Designing Intern", company: "Oasis Infobyte", type: "Internship", period: "Dec 2025 – Jan 2026" },
@@ -36,7 +34,6 @@ const experiences: Role[] = [
   { title: "Artificial Intelligence Intern", company: "CodeAlpha", type: "Internship", period: "Dec 2025 – Jan 2026" },
   { title: "App Development Intern", company: "CodeAlpha", type: "Internship", period: "Dec 2025 – Jan 2026" },
   { title: "HR Intern", company: "Missile Man Scientific & Research Publications", type: "Internship", period: "Dec 2025 – Mar 2026" },
-  { title: "Design Intern", company: "KM UniTech", type: "Internship", period: "Jan 2026 – Present" },
   // Design & Teams
   { title: "Design Team Member", company: "Unnat Bharat Abhiyan (UBA)", type: "Full-time", period: "Jan 2026 – Present" },
   { title: "Poster Team Member", company: "Youth United Council of India (YUCI)", type: "Freelance", period: "Dec 2025 – Jan 2026" },
