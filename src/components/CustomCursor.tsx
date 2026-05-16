@@ -20,7 +20,7 @@ const CustomCursor = () => {
     };
 
     const animate = () => {
-      const ease = 0.15;
+      const ease = 0.35;
       ring.current.x += (mouse.current.x - ring.current.x) * ease;
       ring.current.y += (mouse.current.y - ring.current.y) * ease;
       if (ringRef.current) {
