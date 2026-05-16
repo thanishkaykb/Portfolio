@@ -20,12 +20,14 @@ const experiences: Role[] = [
   { title: "Campus Ambassador for Backwaters'26", company: "IIM Kozhikode", type: "Part-time", period: "Dec 2025 – Present" },
   { title: "Campus Ambassador", company: "Zyra Academy", type: "Internship", period: "Jan 2026 – Present" },
   { title: "Magic Member - Influencer", company: "IEEE SAIRAM SIGHT", type: "Part-time", period: "Apr 2026 – Present", description: "Magic Member - Influencer at IEEE SAIRAM SIGHT — driving community engagement through communication, leadership, and creative outreach (Onboarding Poster initiative)." },
+  { title: "Outreach Committee Member", company: "IEEE Returning Mothers Conference 2026", type: "Hybrid", period: "May 2026 – Present", description: "Responsible for the communication between the outreach committee and publicity committee for IEEE Returning Mothers Conference 2026." },
   // Event & Community
   { title: "Event Coordinator & Social Media Manager", company: "IGNITERS", type: "Part-time", period: "Jan 2026 – Present" },
   // Volunteers
   { title: "Student Volunteer", company: "CodeSapiens - Student Community of Coders", type: "Volunteer", period: "Feb 2026 – Apr 2026" },
   { title: "Student Volunteer", company: "IEEE CS, RS, SIGHT & TEMS", type: "Volunteer", period: "Oct 2025 – Present", description: "Volunteering across IEEE Computer Society, IEEE Reliability Society, IEEE SIGHT, and IEEE Technology & Engineering Management Society chapters. Active volunteer in multiple communities, helping with event coordination, content creation, and organizational initiatives." },
   { title: "UBA Volunteer", company: "Unnat Bharat Abhiyan (UBA)", type: "Hybrid", period: "Oct 2025 – Present" },
+  { title: "Volunteer", company: "NSS SAIRAM", type: "Full-time", period: "May 2026 – Present", description: "Volunteering with NSS SAIRAM — contributing to community service initiatives and social outreach programs." },
   { title: "Designer", company: "Digital Dreamers Den (D3)", type: "Part-time", period: "Mar 2026 – Present", description: "Creating visual designs, graphics, and creative content for Digital Dreamers Den (D3) community." },
   // Internships
   { title: "Full-Stack Web Development Intern", company: "Prodigy InfoTech", type: "Internship", period: "Jan 2026 – Feb 2026" },
