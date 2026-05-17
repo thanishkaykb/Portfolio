@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { Mail, Linkedin, Github, Send, MapPin, Phone, CheckCircle, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { getEmailHref } from "@/lib/email";
+import { openExternalLink } from "@/lib/externalLink";
 
 const ContactSection = () => {
   const ref = useRef(null);
@@ -75,7 +76,7 @@ const ContactSection = () => {
               ].map((item, i) => (
                 <motion.div key={i} whileHover={{ x: 4 }} transition={{ type: "spring", stiffness: 300 }}>
                   {item.href ? (
-                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group">
+                    <a href={item.href} target="_blank" rel="noopener noreferrer" onClick={openExternalLink(item.href)} className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group">
                       <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:shadow-[0_0_15px_hsl(var(--primary)/0.15)] transition-all">
                         <item.icon size={18} className="text-primary" />
                       </div>
@@ -95,14 +96,15 @@ const ContactSection = () => {
 
             <div className="flex gap-3 pt-4">
               {[
-                { href: "https://www.linkedin.com/in/thanishka-yogesh/", icon: Linkedin, target: "_top" },
+                { href: "https://www.linkedin.com/in/thanishka-yogesh/", icon: Linkedin },
                 { href: "https://github.com/thanishkaykb", icon: Github },
               ].map((social) => (
                 <motion.a
                   key={social.href}
                   href={social.href}
-                  target={social.target ?? "_blank"}
+                  target="_blank"
                   rel="noopener noreferrer"
+                  onClick={openExternalLink(social.href)}
                   className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 hover:shadow-[0_0_15px_hsl(var(--primary)/0.15)] transition-all"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
