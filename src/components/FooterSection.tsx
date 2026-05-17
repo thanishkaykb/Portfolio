@@ -8,7 +8,7 @@ const FooterSection = () => (
         © 2026 Thanishka Yogesh. All rights reserved.
       </p>
       <div className="flex items-center gap-4">
-        <a href="https://www.linkedin.com/in/thanishka-yogesh" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+        <a href="https://www.linkedin.com/in/thanishka-yogesh/" target="_top" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
           <Linkedin size={16} />
         </a>
         <a href="https://github.com/thanishkaykb" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">

@@ -90,14 +90,14 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           {[
-            { href: "https://www.linkedin.com/in/thanishka-yogesh", icon: Linkedin, label: "LinkedIn" },
+            { href: "https://www.linkedin.com/in/thanishka-yogesh/", icon: Linkedin, label: "LinkedIn", target: "_top" },
             { href: "https://github.com/thanishkaykb", icon: Github, label: "GitHub" },
             { href: getEmailHref("thanishka.ykb@gmail.com"), icon: Mail, label: "Email" },
           ].map((social) => (
             <motion.a
               key={social.label}
               href={social.href}
-              target="_blank"
+              target={social.target ?? "_blank"}
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 hover:shadow-[0_0_15px_hsl(var(--primary)/0.15)] transition-all duration-300"
               whileHover={{ scale: 1.1, y: -2 }}
