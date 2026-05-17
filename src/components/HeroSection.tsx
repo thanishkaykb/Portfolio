@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail, Sparkles } from "lucide-react";
+import { ArrowDown, Download, Github, Linkedin, Mail, Sparkles } from "lucide-react";
 import { getEmailHref } from "@/lib/email";
 import { openExternalLink } from "@/lib/externalLink";
 
@@ -81,6 +81,16 @@ const HeroSection = () => {
             whileTap={{ scale: 0.98 }}
           >
             View Work
+          </motion.a>
+          <motion.a
+            href="/Thanishka_Yogesh_Resume.docx"
+            download="Thanishka_Yogesh_Resume.docx"
+            className="group inline-flex items-center gap-2 px-7 py-3.5 border border-primary/40 text-foreground font-display font-semibold text-sm rounded-xl hover:border-primary hover:bg-primary/5 hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)] transition-all duration-300"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Download size={16} className="text-primary" />
+            Download Resume
           </motion.a>
         </motion.div>
 
