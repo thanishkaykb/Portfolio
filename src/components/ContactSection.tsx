@@ -95,13 +95,13 @@ const ContactSection = () => {
 
             <div className="flex gap-3 pt-4">
               {[
-                { href: "https://www.linkedin.com/in/thanishka-yogesh", icon: Linkedin },
+                { href: "https://www.linkedin.com/in/thanishka-yogesh/", icon: Linkedin, target: "_top" },
                 { href: "https://github.com/thanishkaykb", icon: Github },
               ].map((social) => (
                 <motion.a
                   key={social.href}
                   href={social.href}
-                  target="_blank"
+                  target={social.target ?? "_blank"}
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 hover:shadow-[0_0_15px_hsl(var(--primary)/0.15)] transition-all"
                   whileHover={{ scale: 1.1, y: -2 }}
