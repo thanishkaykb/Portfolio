@@ -83,8 +83,8 @@ const HeroSection = () => {
             View Work
           </motion.a>
           <motion.a
-            href="/Thanishka_Yogesh_Resume.docx"
-            download="Thanishka_Yogesh_Resume.docx"
+            href="/Thanishka_Yogesh_Resume.pdf"
+            download="Thanishka_Yogesh_Resume.pdf"
             className="group inline-flex items-center gap-2 px-7 py-3.5 border border-primary/40 text-foreground font-display font-semibold text-sm rounded-xl hover:border-primary hover:bg-primary/5 hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)] transition-all duration-300"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
