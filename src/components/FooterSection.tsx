@@ -1,4 +1,4 @@
-import { Linkedin, Github, Mail } from "lucide-react";
+import { Linkedin, Github } from "lucide-react";
 import { getEmailHref } from "@/lib/email";
 import { openExternalLink } from "@/lib/externalLink";
 
