@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Download, Github, Linkedin, Mail, Sparkles } from "lucide-react";
+import { ArrowDown, Download, Github, Linkedin, Sparkles } from "lucide-react";
 import { getEmailHref } from "@/lib/email";
 import { openExternalLink } from "@/lib/externalLink";
 
