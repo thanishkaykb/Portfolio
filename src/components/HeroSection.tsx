@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Download, Github, Linkedin, Mail, Sparkles } from "lucide-react";
+import { ArrowDown, Download, Github, Linkedin, Sparkles } from "lucide-react";
 import { getEmailHref } from "@/lib/email";
 import { openExternalLink } from "@/lib/externalLink";
 
@@ -103,7 +103,6 @@ const HeroSection = () => {
           {[
             { href: "https://www.linkedin.com/in/thanishka-yogesh/", icon: Linkedin, label: "LinkedIn" },
             { href: "https://github.com/thanishkaykb", icon: Github, label: "GitHub" },
-            { href: getEmailHref("thanishka.ykb@gmail.com"), icon: Mail, label: "Email" },
           ].map((social) => (
             <motion.a
               key={social.label}

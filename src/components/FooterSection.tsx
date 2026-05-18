@@ -1,4 +1,4 @@
-import { Linkedin, Github, Mail } from "lucide-react";
+import { Linkedin, Github } from "lucide-react";
 import { getEmailHref } from "@/lib/email";
 import { openExternalLink } from "@/lib/externalLink";
 
@@ -14,9 +14,6 @@ const FooterSection = () => (
         </a>
         <a href="https://github.com/thanishkaykb" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
           <Github size={16} />
-        </a>
-        <a href={getEmailHref("thanishka.ykb@gmail.com")} target="_blank" rel="noopener noreferrer" onClick={openExternalLink(getEmailHref("thanishka.ykb@gmail.com"))} className="text-muted-foreground hover:text-primary transition-colors">
-          <Mail size={16} />
         </a>
       </div>
     </div>
