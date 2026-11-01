@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { RESUME_PATH } from "@/data/content";
 
 const links = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "Education", href: "#education" },
+  { label: "Experience", href: "#experience" },
+  { label: "Frames", href: "#frames" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -19,93 +19,91 @@ const Navbar = () => {
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 50);
-
-      // Determine active section based on scroll position
-      const sections = links.map((l) => l.href.replace("#", ""));
+      setScrolled(window.scrollY > 40);
       let current = "home";
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 120) {
-            current = id;
-          }
-        }
+      for (const l of links) {
+        const el = document.getElementById(l.href.replace("#", ""));
+        if (el && el.getBoundingClientRect().top <= 140) current = l.href.replace("#", "");
       }
       setActiveSection(current);
     };
-
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <motion.nav
+    <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "glass" : ""}`}
-      initial={{ y: -80 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-16">
-        <a href="#home" className="font-display font-bold text-lg text-gradient">TY</a>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-14">
+        <a href="#home" className="font-display text-lg tracking-wide text-foreground">
+          THANISHKA <span className="text-primary">YOGESH</span>
+        </a>
 
-        <div className="hidden md:flex items-center gap-8">
-          {links.map((l) => {
-            const isActive = activeSection === l.href.replace("#", "");
-            return (
-              <a
-                key={l.href}
-                href={l.href}
-                className={`text-sm font-display transition-colors relative ${
-                  isActive
-                    ? "text-primary font-semibold"
-                    : "text-muted-foreground hover:text-primary"
-                }`}
-              >
-                {l.label}
-                {isActive && (
-                  <motion.span
-                    layoutId="navbar-underline"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-              </a>
-            );
-          })}
-        </div>
+        <nav className="hidden md:flex items-center gap-7" aria-label="Main navigation">
+          {links.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              className={`font-body text-[12px] uppercase tracking-[0.18em] transition-colors ${
+                activeSection === l.href.replace("#", "")
+                  ? "text-primary"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {l.label}
+            </a>
+          ))}
+          <a
+            href={RESUME_PATH}
+            download="Thanishka_Yogesh_Resume.pdf"
+            className="font-body text-[12px] uppercase tracking-[0.18em] text-primary border border-primary/40 px-3 py-1.5 hover:bg-primary hover:text-primary-foreground transition-colors"
+          >
+            Resume ↗
+          </a>
+        </nav>
 
-        <button className="md:hidden text-foreground" onClick={() => setOpen(!open)}>
-          {open ? <X size={22} /> : <Menu size={22} />}
+        <button
+          className="md:hidden text-foreground p-1"
+          onClick={() => setOpen(!open)}
+          aria-label={open ? "Close menu" : "Open menu"}
+        >
+          {open ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
-      {open && (
-        <motion.div
-          className="md:hidden glass px-6 pb-6 flex flex-col gap-4"
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-        >
-          {links.map((l) => {
-            const isActive = activeSection === l.href.replace("#", "");
-            return (
+      <AnimatePresence>
+        {open && (
+          <motion.nav
+            className="md:hidden glass px-6 pb-6 flex flex-col gap-4"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            aria-label="Mobile navigation"
+          >
+            {links.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className={`text-sm font-display py-2 transition-colors ${
-                  isActive ? "text-primary font-semibold" : "text-muted-foreground hover:text-primary"
-                }`}
+                className="font-body text-sm uppercase tracking-[0.18em] py-1 text-muted-foreground hover:text-primary transition-colors"
               >
                 {l.label}
               </a>
-            );
-          })}
-        </motion.div>
-      )}
-    </motion.nav>
+            ))}
+            <a
+              href={RESUME_PATH}
+              download="Thanishka_Yogesh_Resume.pdf"
+              onClick={() => setOpen(false)}
+              className="font-body text-sm uppercase tracking-[0.18em] text-primary border border-primary/40 px-3 py-2 w-fit"
+            >
+              Resume ↗
+            </a>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+    </header>
   );
 };
 

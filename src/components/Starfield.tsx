@@ -19,16 +19,16 @@ const Starfield = () => {
     resize();
     window.addEventListener("resize", resize);
 
-    const STAR_COUNT = 80;
-    const SPEED = 0.1;
+    const STAR_COUNT = 70;
+    const SPEED = 0.08;
 
     for (let i = 0; i < STAR_COUNT; i++) {
       stars.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         z: Math.random() * 2 + 0.5,
-        size: Math.random() * 1.2 + 0.3,
-        opacity: Math.random() * 0.3 + 0.08,
+        size: Math.random() * 1.1 + 0.3,
+        opacity: Math.random() * 0.25 + 0.06,
       });
     }
 
@@ -36,29 +36,24 @@ const Starfield = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (const star of stars) {
-        // Move stars diagonally (slow drift)
         star.x -= SPEED * star.z * 0.5;
         star.y -= SPEED * star.z * 0.3;
 
-        // Wrap around
         if (star.x < -5) star.x = canvas.width + 5;
         if (star.y < -5) star.y = canvas.height + 5;
 
-        // Twinkle
-        const twinkle = Math.sin(Date.now() * 0.001 * star.z + star.x) * 0.15;
-        const alpha = Math.max(0.05, Math.min(1, star.opacity + twinkle));
+        const twinkle = Math.sin(Date.now() * 0.001 * star.z + star.x) * 0.12;
+        const alpha = Math.max(0.04, Math.min(1, star.opacity + twinkle));
 
-        // Draw star
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size * star.z * 0.4, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(180, 220, 255, ${alpha})`;
+        ctx.fillStyle = `rgba(245, 241, 232, ${alpha})`;
         ctx.fill();
 
-        // Glow for brighter stars
-        if (star.size > 1.2) {
+        if (star.size > 1.1) {
           ctx.beginPath();
           ctx.arc(star.x, star.y, star.size * star.z * 1.2, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(160, 210, 255, ${alpha * 0.15})`;
+          ctx.fillStyle = `rgba(255, 198, 41, ${alpha * 0.12})`;
           ctx.fill();
         }
       }
