@@ -1,12 +1,14 @@
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Code2, Rocket, Globe, Heart } from "lucide-react";
+import { Download } from "lucide-react";
+import { RESUME_PATH, toolkit } from "@/data/content";
 
-const stats = [
-  { value: "25+", label: "Roles & Positions", icon: Rocket },
-  { value: "15+", label: "Organizations", icon: Globe },
-  { value: "4", label: "Languages Spoken", icon: Heart },
-  { value: "2029", label: "Expected Grad", icon: Code2 },
+const details = [
+  { label: "Degree", value: "B.E. Computer Science and Engineering" },
+  { label: "College", value: "Sri Sairam Engineering College, Chennai" },
+  { label: "Expected graduation", value: "2029" },
+  { label: "CGPA", value: "8.60" },
 ];
 
 const AboutSection = () => {
@@ -15,56 +17,75 @@ const AboutSection = () => {
 
   return (
     <section id="about" className="section-padding" ref={ref}>
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <p className="text-primary font-display text-sm tracking-[0.3em] uppercase mb-3">About Me</p>
-          <h2 className="font-display text-3xl md:text-5xl font-bold mb-8">
-            Crafting Digital <span className="text-gradient">Experiences</span>
+          <p className="editorial-label mb-4">01 — About</p>
+          <h2 className="font-display text-5xl md:text-7xl mb-14">
+            A LITTLE <span className="text-primary">ABOUT ME.</span>
           </h2>
         </motion.div>
 
-        <motion.div
-          className="grid md:grid-cols-2 gap-12"
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
-        >
-          <div className="space-y-4 text-muted-foreground leading-relaxed">
-            <p>
-              I'm Thanishka Yogesh, a B.E. Computer Science undergraduate at Sri Sairam Engineering College, Chennai.
-              My core domains are <span className="text-foreground font-semibold">Full Stack Development</span> and <span className="text-foreground font-semibold">Web Development</span>.
+        <div className="grid md:grid-cols-5 gap-12 md:gap-16">
+          <motion.div
+            className="md:col-span-3 space-y-8"
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.15 }}
+          >
+            <p className="text-lg md:text-xl leading-relaxed text-foreground/90">
+              I'm a Computer Science Engineering undergraduate at Sri Sairam Engineering College, Chennai,
+              with a strong interest in full-stack and web development. I enjoy turning ideas into functional,
+              thoughtfully designed digital products, experimenting with technologies, and building solutions
+              with a purpose.
             </p>
-            <p>
-              Beyond coding, I'm deeply involved in campus leadership — serving as Campus Ambassador for organizations like <span className="text-foreground font-semibold">GOOGLE</span>, <span className="text-foreground font-semibold">HCL GUVI</span>, <span className="text-foreground font-semibold">MICROSOFT</span>, and multiple tech communities.
-              I'm also the Founder of TS Hub, a WhatsApp community for events and hackathons.
-            </p>
-            <p>
-              I'm a passionate artist sharing my creative work on Instagram as <a href="https://www.instagram.com/art_by_thanishka" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">@art_by_thanishka</a>,
-              and a published poet on <a href="https://www.poetrysoup.com/poems_poets/poems_by_poet_read.aspx?ID=181303" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">PoetrySoup</a>.
-            </p>
-          </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            {stats.map((s, i) => (
-              <motion.div
-                key={s.label}
-                className="glow-border rounded-xl p-5 bg-card card-lift group cursor-default"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={inView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
-                whileHover={{ scale: 1.03 }}
-              >
-                <s.icon size={18} className="text-primary mb-3 group-hover:scale-110 transition-transform" />
-                <p className="text-3xl font-display font-bold text-primary mb-1">{s.value}</p>
-                <p className="text-sm text-muted-foreground">{s.label}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10">
+              {details.map((d, i) => (
+                <motion.div
+                  key={d.label}
+                  className="hairline py-3 flex items-baseline justify-between gap-4"
+                  initial={{ opacity: 0 }}
+                  animate={inView ? { opacity: 1 } : {}}
+                  transition={{ duration: 0.5, delay: 0.3 + i * 0.08 }}
+                >
+                  <span className="editorial-label shrink-0">{d.label}</span>
+                  <span className="font-body text-sm text-foreground text-right">{d.value}</span>
+                </motion.div>
+              ))}
+            </div>
+
+            <a
+              href={RESUME_PATH}
+              download="Thanishka_Yogesh_Resume.pdf"
+              className="inline-flex items-center gap-2 px-7 py-3 border border-primary/40 text-primary font-body font-semibold text-sm uppercase tracking-[0.15em] hover:bg-primary hover:text-primary-foreground transition-colors"
+            >
+              <Download size={15} />
+              Download Resume
+            </a>
+          </motion.div>
+
+          <motion.div
+            className="md:col-span-2"
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.25 }}
+          >
+            <p className="editorial-label mb-2">Technical Toolkit</p>
+            <p className="font-hand text-accent text-lg mb-6 -rotate-1 inline-block">the tools I reach for —</p>
+            <div>
+              {toolkit.map((t) => (
+                <div key={t.category} className="hairline py-4">
+                  <p className="font-body text-[11px] uppercase tracking-[0.3em] text-primary mb-2">{t.category}</p>
+                  <p className="font-body text-sm text-foreground/85 leading-relaxed">{t.items.join("  /  ")}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

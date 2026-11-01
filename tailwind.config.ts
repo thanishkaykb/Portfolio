@@ -14,8 +14,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Space Grotesk"', 'sans-serif'],
+        display: ['"Bebas Neue"', 'sans-serif'],
         body: ['"DM Sans"', 'sans-serif'],
+        accent: ['"Playfair Display"', 'serif'],
+        hand: ['"Caveat"', 'cursive'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -70,49 +72,13 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
         float: {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
-        "pulse-glow": {
-          "0%, 100%": { opacity: "0.4" },
-          "50%": { opacity: "1" },
-        },
-        "drift-1": {
-          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
-          "25%": { transform: "translate(80px, 50px) scale(1.1)" },
-          "50%": { transform: "translate(30px, 100px) scale(0.95)" },
-          "75%": { transform: "translate(-40px, 60px) scale(1.05)" },
-        },
-        "drift-2": {
-          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
-          "25%": { transform: "translate(-60px, -40px) scale(1.08)" },
-          "50%": { transform: "translate(-100px, 30px) scale(0.92)" },
-          "75%": { transform: "translate(-30px, -70px) scale(1.03)" },
-        },
-        "drift-3": {
-          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
-          "33%": { transform: "translate(70px, -50px) scale(1.1)" },
-          "66%": { transform: "translate(-50px, -30px) scale(0.9)" },
-        },
-        "drift-4": {
-          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
-          "50%": { transform: "translate(-80px, 60px) scale(1.15)" },
-        },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
         float: "float 6s ease-in-out infinite",
-        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
       },
     },
   },

@@ -1,131 +1,89 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Download, Github, Linkedin, Sparkles } from "lucide-react";
-import { getEmailHref } from "@/lib/email";
-import { openExternalLink } from "@/lib/externalLink";
+import { RESUME_PATH } from "@/data/content";
+
+const fade = (delay: number) => ({
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] as const },
+});
 
 const HeroSection = () => {
   return (
-    <section id="home" className="relative min-h-screen flex items-center section-padding overflow-hidden">
-      {/* Animated background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] animate-pulse-glow" />
-        <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-glow-secondary/10 rounded-full blur-[100px] animate-pulse-glow" style={{ animationDelay: "1.5s" }} />
-        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-primary/5 rounded-full blur-[80px] animate-float" />
-        {/* Grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(hsl(var(--primary)/0.03)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--primary)/0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
+    <section id="home" className="relative min-h-screen flex flex-col justify-center section-padding overflow-hidden">
+      {/* Editorial marginalia */}
+      <div className="pointer-events-none absolute inset-0 hidden md:block" aria-hidden="true">
+        <div className="absolute left-12 xl:left-32 top-1/2 -translate-y-1/2 -rotate-90 origin-left">
+          <p className="font-body text-[10px] uppercase tracking-[0.5em] text-muted-foreground/60 whitespace-nowrap">
+            Chennai, India — 12.98° N, 80.22° E
+          </p>
+        </div>
+        <div className="absolute right-12 xl:right-32 top-1/2 -translate-y-1/2 rotate-90 origin-right">
+          <p className="font-body text-[10px] uppercase tracking-[0.5em] text-muted-foreground/60 whitespace-nowrap">
+            Est. 2026 — Portfolio, Vol. 01
+          </p>
+        </div>
+        <div className="absolute top-28 left-1/2 w-px h-24 bg-border" />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6"
-            whileHover={{ scale: 1.05 }}
-          >
-            <Sparkles size={12} className="text-primary" />
-            <p className="text-primary font-display text-xs tracking-[0.2em] uppercase">
-              Full Stack Developer · Web Developer
-            </p>
-          </motion.div>
-        </motion.div>
-
-        <motion.h1
-          className="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.95] mb-6"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.15 }}
-        >
-          <span className="text-foreground">Thanishka</span>
-          <br />
-          <span className="text-gradient">Yogesh</span>
-        </motion.h1>
-
-        <motion.p
-          className="text-muted-foreground text-lg md:text-xl max-w-xl mb-10 font-body leading-relaxed"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          B.E. Computer Science student at Sri Sairam Engineering College,
-          passionate about building impactful web solutions, AI innovations,
-          and leading tech communities.
+      <div className="relative z-10 max-w-6xl mx-auto w-full">
+        <motion.p {...fade(0.1)} className="editorial-label mb-6">
+          Computer Science Engineering · Full-Stack &amp; Web Development
         </motion.p>
 
-        <motion.div
-          className="flex flex-wrap items-center gap-4 mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.45 }}
-        >
-          <motion.a
-            href="#contact"
-            className="group relative px-7 py-3.5 bg-primary text-primary-foreground font-display font-semibold text-sm rounded-xl overflow-hidden"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
+        <h1 className="font-display leading-[0.88] mb-8">
+          <motion.span
+            {...fade(0.2)}
+            className="block text-[19vw] md:text-[13vw] lg:text-[10rem] text-foreground"
           >
-            <span className="relative z-10">Get In Touch</span>
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-primary to-glow-secondary"
-              initial={{ x: "-100%" }}
-              whileHover={{ x: 0 }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.a>
-          <motion.a
-            href="#experience"
-            className="px-7 py-3.5 border border-border text-foreground font-display font-semibold text-sm rounded-xl hover:border-primary/50 hover:shadow-[0_0_20px_hsl(var(--primary)/0.1)] transition-all duration-300"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
+            THANISHKA
+          </motion.span>
+          <motion.span
+            {...fade(0.3)}
+            className="block text-[19vw] md:text-[13vw] lg:text-[10rem] text-foreground"
           >
-            View Work
-          </motion.a>
-          <motion.a
-            href="/Thanishka_Yogesh_Resume.pdf"
-            download="Thanishka_Yogesh_Resume.pdf"
-            className="group inline-flex items-center gap-2 px-7 py-3.5 border border-primary/40 text-foreground font-display font-semibold text-sm rounded-xl hover:border-primary hover:bg-primary/5 hover:shadow-[0_0_20px_hsl(var(--primary)/0.15)] transition-all duration-300"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Download size={16} className="text-primary" />
-            Download Resume
-          </motion.a>
-        </motion.div>
+            YOGESH<span className="text-primary">.</span>
+          </motion.span>
+        </h1>
 
-        <motion.div
-          className="flex items-center gap-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          {[
-            { href: "https://www.linkedin.com/in/thanishka-yogesh/", icon: Linkedin, label: "LinkedIn" },
-            { href: "https://github.com/thanishkaykb", icon: Github, label: "GitHub" },
-          ].map((social) => (
-            <motion.a
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={openExternalLink(social.href)}
-              className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 hover:shadow-[0_0_15px_hsl(var(--primary)/0.15)] transition-all duration-300"
-              whileHover={{ scale: 1.1, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <social.icon size={18} />
-            </motion.a>
-          ))}
+        <motion.p {...fade(0.45)} className="max-w-xl text-muted-foreground text-base md:text-lg leading-relaxed mb-4">
+          I build thoughtful digital experiences, from intuitive interfaces to the systems that power them.
+        </motion.p>
+
+        <motion.p {...fade(0.55)} className="font-accent italic text-primary text-lg md:text-xl mb-12">
+          Developer. Student. Experimenter.
+        </motion.p>
+
+        <motion.div {...fade(0.65)} className="flex flex-wrap items-center gap-4">
+          <a
+            href="#projects"
+            className="px-8 py-3.5 bg-primary text-primary-foreground font-body font-semibold text-sm uppercase tracking-[0.15em] hover:bg-accent transition-colors"
+          >
+            Explore My Work
+          </a>
+          <a
+            href={RESUME_PATH}
+            download="Thanishka_Yogesh_Resume.pdf"
+            className="px-8 py-3.5 border border-border text-foreground font-body font-semibold text-sm uppercase tracking-[0.15em] hover:border-primary hover:text-primary transition-colors"
+          >
+            Download Resume
+          </a>
+          <a
+            href="#contact"
+            className="font-accent italic text-lg text-muted-foreground hover:text-primary underline decoration-primary/40 underline-offset-8 transition-colors"
+          >
+            Let's Connect
+          </a>
         </motion.div>
       </div>
 
       <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 pointer-events-none"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
+        animate={{ y: [0, 6, 0] }}
+        transition={{ duration: 2.5, repeat: Infinity }}
+        aria-hidden="true"
       >
-        <ArrowDown size={20} className="text-muted-foreground" />
+        <p className="editorial-label !text-[9px]">Scroll</p>
+        <div className="w-px h-10 bg-border" />
       </motion.div>
     </section>
   );

@@ -1,140 +1,105 @@
-import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
-import { ExternalLink, Github, Loader2 } from "lucide-react";
-
-interface GitHubRepo {
-  name: string;
-  description: string | null;
-  html_url: string;
-  language: string | null;
-  topics: string[];
-  stargazers_count: number;
-  fork: boolean;
-}
-
-// Fallback data in case GitHub API fails
-const fallbackProjects = [
-  { name: "CongestiQ-AI", desc: "AI-powered smart traffic intelligence platform with real-time map data, weather insights, and intelligent routing.", tech: ["TypeScript", "AI", "Maps API"], repo: "https://github.com/thanishkaykb/CongestiQ-AI" },
-  { name: "Anonymous Whispers", desc: "Privacy-first web app for sharing thoughts and confessions completely anonymously.", tech: ["TypeScript", "React", "Full Stack"], repo: "https://github.com/thanishkaykb/Anonymous_Whispers" },
-  { name: "Social Media Platform", desc: "Full-stack social platform with user profiles, posts, likes, and comments using Node.js, Express & MySQL.", tech: ["JavaScript", "Node.js", "MySQL"], repo: "https://github.com/thanishkaykb/Social-Media-Platform" },
-];
-
-const GITHUB_USERNAME = "thanishkaykb";
-
-const ProjectCard = ({ project }: { project: { name: string; desc: string; tech: string[]; repo: string } }) => (
-  <motion.a
-    href={project.repo}
-    target="_blank"
-    rel="noopener noreferrer"
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-40px" }}
-    transition={{ type: "spring", stiffness: 200, damping: 25, mass: 0.8 }}
-    className="group relative rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-[0_4px_20px_hsl(var(--primary)/0.1)] cursor-pointer"
-  >
-    <div className="relative z-10 p-6">
-      <div className="flex items-start gap-3 mb-3">
-        <Github size={18} className="mt-0.5 shrink-0 text-muted-foreground group-hover:text-primary transition-colors" />
-        <h3 className="font-display font-semibold text-sm leading-tight text-foreground group-hover:text-primary transition-colors">
-          {project.name.replace(/-/g, " ").replace(/_/g, " ")}
-        </h3>
-      </div>
-      <p className="text-muted-foreground text-xs leading-relaxed mb-4 font-body line-clamp-3">
-        {project.desc || "No description available."}
-      </p>
-      <div className="flex flex-wrap gap-1.5">
-        {project.tech.map((t) => (
-          <span key={t} className="text-[10px] font-display font-medium px-2 py-0.5 rounded-full text-primary/80 bg-primary/5 border border-primary/10">
-            {t}
-          </span>
-        ))}
-      </div>
-      <ExternalLink size={14} className="absolute bottom-5 right-5 text-muted-foreground/40 group-hover:text-primary/60 transition-colors" />
-    </div>
-  </motion.a>
-);
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef, useState } from "react";
+import { ArrowUpRight } from "lucide-react";
+import { projects } from "@/data/content";
 
 const ProjectsSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [projects, setProjects] = useState<{ name: string; desc: string; tech: string[]; repo: string }[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchRepos = async () => {
-      try {
-        const response = await fetch(
-          `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated&direction=desc`,
-          { headers: { Accept: "application/vnd.github.mercy-preview+json" } }
-        );
-        if (!response.ok) throw new Error("GitHub API error");
-        
-        const repos: GitHubRepo[] = await response.json();
-        const mapped = repos
-          .filter((r) => !r.fork)
-          .map((r) => ({
-            name: r.name,
-            desc: r.description || "",
-            tech: r.topics?.length ? r.topics.slice(0, 3) : r.language ? [r.language] : [],
-            repo: r.html_url,
-          }));
-        
-        setProjects(mapped.length > 0 ? mapped : fallbackProjects);
-      } catch {
-        setProjects(fallbackProjects);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchRepos();
-  }, []);
+  const [hovered, setHovered] = useState<string | null>(null);
 
   return (
-    <section id="projects" className="section-padding" ref={ref}>
+    <section id="projects" className="section-padding bg-card/40" ref={ref}>
       <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <p className="text-primary font-display text-sm tracking-[0.3em] uppercase mb-3">Projects</p>
-          <h2 className="font-display text-3xl md:text-5xl font-bold mb-4">
-            Things I've <span className="text-gradient">Built</span>
+          <p className="editorial-label mb-4">02 — Selected Projects</p>
+          <h2 className="font-display text-5xl md:text-7xl mb-4">
+            THINGS I'VE <span className="text-primary">BUILT.</span>
           </h2>
-          <p className="text-muted-foreground font-body text-sm mb-12 max-w-xl">
-            Live from GitHub — every new project automatically appears here.
+          <p className="font-accent italic text-muted-foreground text-lg mb-16">
+            A selection of ideas I've turned into working digital experiences.
           </p>
         </motion.div>
 
-        {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <Loader2 size={24} className="animate-spin text-primary" />
-          </div>
-        ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {projects.map((project) => (
-              <ProjectCard key={project.name} project={project} />
-            ))}
-          </div>
-        )}
+        <div className="space-y-20 md:space-y-28">
+          {projects.map((p, i) => {
+            const reversed = i % 2 === 1;
+            return (
+              <motion.article
+                key={p.name}
+                className={`grid md:grid-cols-12 gap-8 md:gap-6 items-start border-t border-border pt-10 ${
+                  reversed ? "" : ""
+                }`}
+                initial={{ opacity: 0, y: 40 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.7, delay: i * 0.1 }}
+                onMouseEnter={() => setHovered(p.name)}
+                onMouseLeave={() => setHovered(null)}
+              >
+                {/* Oversized number */}
+                <div className={`md:col-span-3 ${reversed ? "md:order-3 md:text-left" : ""}`}>
+                  <span
+                    className={`font-display text-[6rem] md:text-[8rem] leading-none block transition-colors duration-500 ${
+                      hovered === p.name ? "text-primary" : "text-foreground/10"
+                    }`}
+                  >
+                    {p.index}
+                  </span>
+                </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="mt-10 text-center"
-        >
-          <a
-            href={`https://github.com/${GITHUB_USERNAME}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-display text-muted-foreground hover:text-primary transition-colors"
-          >
-            <Github size={16} />
-            View all on GitHub
-          </a>
-        </motion.div>
+                {/* Body */}
+                <div className={`md:col-span-9 space-y-6 ${reversed ? "md:order-1 md:pr-10" : ""}`}>
+                  <div>
+                    <h3 className="font-display text-4xl md:text-6xl text-foreground">{p.name}</h3>
+                    <p className="font-accent italic text-accent text-lg mt-1">{p.title}</p>
+                  </div>
+
+                  {p.achievement && (
+                    <p className="inline-block font-body text-[11px] uppercase tracking-[0.25em] text-primary border border-primary/40 px-3 py-1.5">
+                      {p.achievement}
+                    </p>
+                  )}
+
+                  <p className="text-muted-foreground leading-relaxed max-w-2xl">{p.description}</p>
+
+                  <ul className="grid sm:grid-cols-2 gap-x-10 gap-y-2 max-w-3xl">
+                    {p.features.map((f) => (
+                      <li key={f} className="font-body text-sm text-foreground/80 flex gap-3">
+                        <span className="text-primary mt-[7px] w-1 h-1 rounded-full bg-primary shrink-0" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                    {p.stack.map((s) => (
+                      <span key={s} className="font-body text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+
+                  <a
+                    href={p.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 font-body font-semibold text-sm uppercase tracking-[0.2em] text-primary group w-fit"
+                  >
+                    <span className="border-b border-primary/40 pb-0.5 group-hover:border-primary transition-colors">
+                      View Project
+                    </span>
+                    <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </a>
+                </div>
+              </motion.article>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
