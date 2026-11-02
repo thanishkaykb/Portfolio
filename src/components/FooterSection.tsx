@@ -32,6 +32,7 @@ const FooterSection = () => {
             href={LINKS.github}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={openExternalLink(LINKS.github)}
             aria-label="GitHub"
             className="text-muted-foreground hover:text-primary transition-colors"
           >

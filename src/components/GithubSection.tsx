@@ -3,6 +3,7 @@ import { useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Github } from "lucide-react";
 import { LINKS } from "@/data/content";
+import { openExternalLink } from "@/lib/externalLink";
 
 interface Repo {
   name: string;
@@ -17,16 +18,19 @@ const GithubSection = () => {
 
   useEffect(() => {
     let cancelled = false;
-    fetch("https://api.github.com/users/thanishkaykb/repos?sort=updated&per_page=3")
+    fetch("https://api.github.com/users/thanishkaykb/repos?sort=updated&per_page=30")
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then((data) => {
         if (!cancelled && Array.isArray(data)) {
           setRepos(
-            data.map((d: { name: string; html_url: string; description: string | null }) => ({
-              name: d.name,
-              html_url: d.html_url,
-              description: d.description,
-            }))
+            data
+              .filter((d: { fork?: boolean }) => !d.fork)
+              .slice(0, 6)
+              .map((d: { name: string; html_url: string; description: string | null }) => ({
+                name: d.name,
+                html_url: d.html_url,
+                description: d.description,
+              }))
           );
         }
       })
@@ -58,6 +62,7 @@ const GithubSection = () => {
             href={LINKS.github}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={openExternalLink(LINKS.github)}
             className="inline-flex items-center gap-2 px-7 py-3 border border-primary/40 text-primary font-body font-semibold text-sm uppercase tracking-[0.15em] hover:bg-primary hover:text-primary-foreground transition-colors w-fit"
           >
             <Github size={15} />
@@ -66,30 +71,51 @@ const GithubSection = () => {
         </motion.div>
 
         {repos && repos.length > 0 && (
-          <div className="mt-12 grid md:grid-cols-3 gap-px bg-border border border-border">
-            {repos.map((r, i) => (
-              <motion.a
-                key={r.html_url}
-                href={r.html_url}
+          <>
+            <div className="mt-12 grid md:grid-cols-3 border border-border">
+              {repos.map((r, i) => (
+                <motion.a
+                  key={r.html_url}
+                  href={r.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={openExternalLink(r.html_url)}
+                  className="bg-background p-6 border border-border hover:bg-card transition-colors group"
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: i * 0.06 }}
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="font-body font-semibold text-sm text-foreground group-hover:text-primary transition-colors">
+                      {r.name}
+                    </span>
+                    <ArrowUpRight size={14} className="text-muted-foreground group-hover:text-primary transition-colors" />
+                  </div>
+                  {r.description && (
+                    <p className="font-body text-xs text-muted-foreground leading-relaxed line-clamp-2">{r.description}</p>
+                  )}
+                </motion.a>
+              ))}
+            </div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="mt-10 flex justify-center"
+            >
+              <a
+                href={LINKS.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-background p-6 hover:bg-card transition-colors group"
-                initial={{ opacity: 0, y: 16 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
+                onClick={openExternalLink(LINKS.github)}
+                className="inline-flex items-center gap-2 px-8 py-3.5 border border-border text-foreground font-body font-semibold text-sm uppercase tracking-[0.15em] hover:border-primary hover:text-primary transition-colors"
               >
-                <div className="flex items-center justify-between mb-3">
-                  <span className="font-body font-semibold text-sm text-foreground group-hover:text-primary transition-colors">
-                    {r.name}
-                  </span>
-                  <ArrowUpRight size={14} className="text-muted-foreground group-hover:text-primary transition-colors" />
-                </div>
-                {r.description && (
-                  <p className="font-body text-xs text-muted-foreground leading-relaxed line-clamp-2">{r.description}</p>
-                )}
-              </motion.a>
-            ))}
-          </div>
+                <Github size={15} />
+                View more on my GitHub
+                <ArrowUpRight size={14} />
+              </a>
+            </motion.div>
+          </>
         )}
       </div>
     </section>
