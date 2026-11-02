@@ -18,7 +18,7 @@ const GithubSection = () => {
 
   useEffect(() => {
     let cancelled = false;
-    fetch("https://api.github.com/users/thanishkaykb/repos?sort=updated&per_page=6")
+    fetch("https://api.github.com/users/thanishkaykb/repos?sort=updated&per_page=30")
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then((data) => {
         if (!cancelled && Array.isArray(data)) {
@@ -72,7 +72,7 @@ const GithubSection = () => {
 
         {repos && repos.length > 0 && (
           <>
-            <div className="mt-12 grid md:grid-cols-3 gap-px bg-border border border-border">
+            <div className="mt-12 grid md:grid-cols-3 border border-border">
               {repos.map((r, i) => (
                 <motion.a
                   key={r.html_url}
@@ -80,7 +80,7 @@ const GithubSection = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={openExternalLink(r.html_url)}
-                  className="bg-background p-6 hover:bg-card transition-colors group"
+                  className="bg-background p-6 border border-border hover:bg-card transition-colors group"
                   initial={{ opacity: 0, y: 16 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: i * 0.06 }}
