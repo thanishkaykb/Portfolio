@@ -108,14 +108,16 @@ const HeroSection = () => {
           {/* Portrait with golden aura */}
           <motion.div
             {...fade(0.5)}
-            className="relative mx-auto w-full max-w-sm lg:max-w-none flex justify-center lg:justify-end"
+            className="relative mx-auto w-full max-w-sm md:max-w-none flex justify-center md:justify-end"
+
           >
             <img
               src={portrait}
               alt="Thanishka Yogesh"
               width={1024}
               height={1024}
-              className="w-64 sm:w-80 lg:w-full max-w-md h-auto object-cover"
+              className="w-64 sm:w-80 md:w-full max-w-md md:max-w-none h-auto object-cover"
+
               style={{ mixBlendMode: "screen" }}
             />
           </motion.div>
