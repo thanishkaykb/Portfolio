@@ -124,7 +124,7 @@ const FramesGallery = () => {
           >
             {frames.map((f, i) => (
               <div key={`${f.src}-${i}`} style={{ scrollSnapAlign: "center" }}>
-                <Tile f={f} i={i} />
+                {tile(f, i)}
               </div>
             ))}
           </div>
@@ -143,7 +143,7 @@ const FramesGallery = () => {
               style={{ animationDuration: marqueeDuration }}
             >
               {[...frames, ...frames].map((f, i) => (
-                <Tile key={`${f.src}-${i}`} f={f} i={i} />
+                <div key={`${f.src}-${i}`}>{tile(f, i)}</div>
               ))}
             </div>
             {/* Soft edge fade so frames drift out of view instead of hard-clipping */}
