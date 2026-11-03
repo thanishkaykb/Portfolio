@@ -143,7 +143,7 @@ const FramesGallery = () => {
               style={{ animationDuration: marqueeDuration }}
             >
               {[...frames, ...frames].map((f, i) => (
-                <Tile f={f} i={i} />
+                <Tile key={`${f.src}-${i}`} f={f} i={i} />
               ))}
             </div>
             {/* Soft edge fade so frames drift out of view instead of hard-clipping */}
