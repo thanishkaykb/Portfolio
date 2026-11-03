@@ -59,7 +59,7 @@ const FramesGallery = () => {
   const marqueeDuration = `${Math.max(36, count * 7)}s`;
 
   const Tile = ({ f, i }: { f: Frame; i: number }) => (
-    <div key={`${f.src}-${i}`} className="pr-4 md:pr-5">
+    <div className="pr-4 md:pr-5">
       <button
         onClick={() => openAt(i)}
         className="group relative block h-56 w-44 md:h-72 md:w-56 overflow-hidden frame-line bg-secondary focus-visible:outline focus-visible:outline-primary transition-transform duration-500 ease-out hover:-translate-y-1.5"
