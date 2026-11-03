@@ -58,7 +58,7 @@ const FramesGallery = () => {
 
   const marqueeDuration = `${Math.max(36, count * 7)}s`;
 
-  const Tile = ({ f, i }: { f: Frame; i: number }) => (
+  const tile = (f: Frame, i: number) => (
     <div className="pr-4 md:pr-5">
       <button
         onClick={() => openAt(i)}
