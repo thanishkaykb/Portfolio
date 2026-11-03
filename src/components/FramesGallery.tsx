@@ -1,39 +1,29 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { X } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { frames, type Frame } from "@/data/frames";
 
 /**
- * LIFE IN FRAMES — immersive 3D curved photo gallery.
+ * LIFE IN FRAMES — endless drifting film-strip gallery.
  *
- * The ring of tiles is a CSS 3D cylinder: each tile sits at
- * rotateY(i · step) translateZ(radius). Drag / touch rotates the ring;
- * it drifts gently on its own when idle. Click a tile to open the lightbox.
+ * Photos flow past in a slow infinite marquee (like a projected film reel).
+ * Hovering / pressing the strip pauses it; clicking a frame opens a lightbox
+ * with previous / next navigation. With prefers-reduced-motion the strip
+ * becomes a swipeable scroller instead of auto-moving.
  *
- * Honors prefers-reduced-motion (no auto-rotation).
  * With no photographs yet, it shows an editorial empty state instead of
- * faking content.
+ * faking content. The strip fills automatically from src/data/frames.ts.
  */
-
-const TILE_W = 230;
-const TILE_H = 300;
-const RADIUS = 480;
 
 const FramesGallery = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const ringRef = useRef<HTMLDivElement>(null);
-  const rotation = useRef(0);
-  const velocity = useRef(0);
-  const dragging = useRef(false);
-  const lastX = useRef(0);
-  const raf = useRef(0);
-  const [lightbox, setLightbox] = useState<Frame | null>(null);
+  const [lightbox, setLightbox] = useState<number | null>(null);
+  const [paused, setPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
 
   const count = frames.length;
-  const step = count > 0 ? 360 / count : 0;
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -43,57 +33,53 @@ const FramesGallery = () => {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
-  useEffect(() => {
-    if (count === 0) return;
-    const animate = () => {
-      if (!dragging.current) {
-        velocity.current *= 0.95; // inertia decay
-        if (!reducedMotion && Math.abs(velocity.current) < 0.02) {
-          velocity.current += (0.06 - velocity.current) * 0.02; // gentle ambient drift
-        }
-        rotation.current += velocity.current;
-      }
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translateZ(-${RADIUS}px) rotateY(${rotation.current}deg)`;
-      }
-      raf.current = requestAnimationFrame(animate);
-    };
-    raf.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(raf.current);
-  }, [count, reducedMotion]);
+  const openAt = useCallback((i: number) => setLightbox(i), []);
 
-  const onPointerDown = useCallback((e: React.PointerEvent) => {
-    dragging.current = true;
-    lastX.current = e.clientX;
-    velocity.current = 0;
-    (e.target as Element).setPointerCapture?.(e.pointerId);
-  }, []);
-
-  const onPointerMove = useCallback((e: React.PointerEvent) => {
-    if (!dragging.current) return;
-    const dx = e.clientX - lastX.current;
-    lastX.current = e.clientX;
-    rotation.current += dx * 0.25;
-    velocity.current = dx * 0.25;
-  }, []);
-
-  const onPointerUp = useCallback(() => {
-    dragging.current = false;
-  }, []);
+  const stepLightbox = useCallback(
+    (dir: 1 | -1) => {
+      setLightbox((cur) => {
+        if (cur === null) return cur;
+        return (cur + dir + count) % count;
+      });
+    },
+    [count]
+  );
 
   useEffect(() => {
+    if (lightbox === null) return;
     const onKey = (e: KeyboardEvent) => {
-      if (lightbox) {
-        if (e.key === "Escape") setLightbox(null);
-        return;
-      }
-      if (count === 0) return;
-      if (e.key === "ArrowLeft") rotation.current += step;
-      if (e.key === "ArrowRight") rotation.current -= step;
+      if (e.key === "Escape") setLightbox(null);
+      if (e.key === "ArrowRight") stepLightbox(1);
+      if (e.key === "ArrowLeft") stepLightbox(-1);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [count, step, lightbox]);
+  }, [lightbox, stepLightbox]);
+
+  const marqueeDuration = `${Math.max(36, count * 7)}s`;
+
+  const tile = (f: Frame, i: number) => (
+    <div className="pr-4 md:pr-5">
+      <button
+        onClick={() => openAt(i)}
+        className="group relative block h-56 w-44 md:h-72 md:w-56 overflow-hidden frame-line bg-secondary focus-visible:outline focus-visible:outline-primary transition-transform duration-500 ease-out hover:-translate-y-1.5"
+        aria-label={f.caption || `Open photograph ${i + 1}`}
+      >
+        <img
+          src={f.src}
+          alt={f.caption || `Photograph ${i + 1}`}
+          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+          draggable={false}
+          loading="lazy"
+        />
+        {f.caption && (
+          <span className="absolute inset-x-0 bottom-0 translate-y-full bg-background/85 px-3 py-2 text-left font-accent italic text-xs text-accent opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+            {f.caption}
+          </span>
+        )}
+      </button>
+    </div>
+  );
 
   return (
     <section id="frames" className="section-padding bg-card/40 overflow-hidden" ref={ref}>
@@ -108,7 +94,7 @@ const FramesGallery = () => {
             LIFE IN <span className="text-primary">FRAMES.</span>
           </h2>
           <p className="font-accent italic text-muted-foreground text-lg mb-6">
-            Moments, people, places, and experiences that shaped my journey.
+            Visual journey — moments that shaped my journey.
           </p>
         </motion.div>
 
@@ -128,63 +114,62 @@ const FramesGallery = () => {
               everyday experiences — no placeholders, no fakes.
             </p>
           </motion.div>
+        ) : reducedMotion ? (
+          <div
+            className="mt-8 flex overflow-x-auto pb-4"
+            style={{ scrollSnapType: "x mandatory" }}
+            role="region"
+            aria-label="Photo gallery — scroll sideways"
+            tabIndex={0}
+          >
+            {frames.map((f, i) => (
+              <div key={`${f.src}-${i}`} style={{ scrollSnapAlign: "center" }}>
+                {tile(f, i)}
+              </div>
+            ))}
+          </div>
         ) : (
           <div
             className="relative mt-8 select-none"
-            style={{ perspective: "1400px", touchAction: "pan-y" }}
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-            onPointerLeave={onPointerUp}
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onTouchStart={() => setPaused(true)}
+            onTouchEnd={() => setPaused(false)}
             role="region"
-            aria-label="Photo gallery — drag to rotate"
-            tabIndex={0}
+            aria-label="Photo gallery — drifts slowly, hover to pause, click a frame to open"
           >
             <div
-              ref={ringRef}
-              className="relative mx-auto"
-              style={{
-                width: TILE_W,
-                height: TILE_H,
-                transformStyle: "preserve-3d",
-                transition: dragging.current ? "none" : undefined,
-              }}
+              className={`flex w-max ${paused ? "frames-marquee-paused" : "frames-marquee"}`}
+              style={{ animationDuration: marqueeDuration }}
             >
-              {frames.map((f, i) => (
-                <button
-                  key={f.src}
-                  onClick={() => !dragging.current && setLightbox(f)}
-                  className="absolute inset-0 overflow-hidden focus-visible:outline focus-visible:outline-primary"
-                  style={{
-                    transform: `rotateY(${i * step}deg) translateZ(${RADIUS}px)`,
-                    backfaceVisibility: "hidden",
-                  }}
-                  aria-label={f.caption || `Photograph ${i + 1}`}
-                >
-                  <img
-                    src={f.src}
-                    alt={f.caption || `Photograph ${i + 1}`}
-                    className="w-full h-full object-cover"
-                    draggable={false}
-                    loading="lazy"
-                  />
-                  <span className="absolute inset-0 border border-primary/20 pointer-events-none" aria-hidden="true" />
-                </button>
+              {[...frames, ...frames].map((f, i) => (
+                <div key={`${f.src}-${i}`}>{tile(f, i)}</div>
               ))}
             </div>
-            <p className="text-center editorial-label mt-10">Drag to rotate · Click a frame to open</p>
+            {/* Soft edge fade so frames drift out of view instead of hard-clipping */}
+            <div
+              className="pointer-events-none absolute inset-y-0 left-0 w-16 md:w-32"
+              style={{ background: "linear-gradient(to right, hsl(0 0% 4% / 0.9), transparent)" }}
+              aria-hidden="true"
+            />
+            <div
+              className="pointer-events-none absolute inset-y-0 right-0 w-16 md:w-32"
+              style={{ background: "linear-gradient(to left, hsl(0 0% 4% / 0.9), transparent)" }}
+              aria-hidden="true"
+            />
+            <p className="text-center editorial-label mt-10">Hover to pause · Click a frame to open</p>
           </div>
         )}
       </div>
 
       {/* Lightbox */}
-      {lightbox && (
+      {lightbox !== null && frames[lightbox] && (
         <div
           className="fixed inset-0 z-[10000] bg-background/95 backdrop-blur-sm flex items-center justify-center p-6"
           onClick={() => setLightbox(null)}
           role="dialog"
           aria-modal="true"
-          aria-label={lightbox.caption || "Photograph"}
+          aria-label={frames[lightbox].caption || "Photograph"}
         >
           <button
             className="absolute top-6 right-6 text-muted-foreground hover:text-primary transition-colors"
@@ -193,10 +178,40 @@ const FramesGallery = () => {
           >
             <X size={26} />
           </button>
+          {count > 1 && (
+            <button
+              className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors p-2"
+              onClick={(e) => {
+                e.stopPropagation();
+                stepLightbox(-1);
+              }}
+              aria-label="Previous photograph"
+            >
+              <ChevronLeft size={34} />
+            </button>
+          )}
+          {count > 1 && (
+            <button
+              className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors p-2"
+              onClick={(e) => {
+                e.stopPropagation();
+                stepLightbox(1);
+              }}
+              aria-label="Next photograph"
+            >
+              <ChevronRight size={34} />
+            </button>
+          )}
           <figure className="max-w-4xl w-full" onClick={(e) => e.stopPropagation()}>
-            <img src={lightbox.src} alt={lightbox.caption || "Photograph"} className="w-full max-h-[75vh] object-contain border border-border" />
-            {lightbox.caption && (
-              <figcaption className="font-accent italic text-center text-accent mt-4">{lightbox.caption}</figcaption>
+            <img
+              src={frames[lightbox].src}
+              alt={frames[lightbox].caption || "Photograph"}
+              className="w-full max-h-[75vh] object-contain border border-border"
+            />
+            {frames[lightbox].caption && (
+              <figcaption className="font-accent italic text-center text-accent mt-4">
+                {frames[lightbox].caption}
+              </figcaption>
             )}
           </figure>
         </div>
