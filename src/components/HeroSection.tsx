@@ -28,7 +28,8 @@ const HeroSection = () => {
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
-        <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-12 lg:gap-8 items-center">
+        <div className="grid md:grid-cols-[1.15fr_0.85fr] gap-10 md:gap-6 items-center">
+
           <div>
             <motion.p {...fade(0.1)} className="editorial-label mb-6">
               Computer Science Engineering · Full-Stack &amp; Web Development
