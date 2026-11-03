@@ -28,7 +28,8 @@ const HeroSection = () => {
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
-        <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-12 lg:gap-8 items-center">
+        <div className="grid md:grid-cols-[1.15fr_0.85fr] gap-10 md:gap-6 items-center">
+
           <div>
             <motion.p {...fade(0.1)} className="editorial-label mb-6">
               Computer Science Engineering · Full-Stack &amp; Web Development
@@ -107,14 +108,16 @@ const HeroSection = () => {
           {/* Portrait with golden aura */}
           <motion.div
             {...fade(0.5)}
-            className="relative mx-auto w-full max-w-sm lg:max-w-none flex justify-center lg:justify-end"
+            className="relative mx-auto w-full max-w-sm md:max-w-none flex justify-center md:justify-end"
+
           >
             <img
               src={portrait}
               alt="Thanishka Yogesh"
               width={1024}
               height={1024}
-              className="w-64 sm:w-80 lg:w-full max-w-md h-auto object-cover"
+              className="w-64 sm:w-80 md:w-full max-w-md md:max-w-none h-auto object-cover"
+
               style={{ mixBlendMode: "screen" }}
             />
           </motion.div>
