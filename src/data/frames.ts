@@ -18,7 +18,7 @@ export interface Frame {
 
 export const frames: Frame[] = [
   // TEMP VERIFICATION — removed after visual check
-  { src: "/thanishka-portrait.jpg", caption: "temp" },
+  { src: "/placeholder.svg", caption: "temp" },
   // Add your photographs here, e.g.
   // { src: "/frames/intellect-hack-2026.jpg", caption: "Intellect Hack 2026" },
 ];
