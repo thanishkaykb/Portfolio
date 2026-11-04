@@ -115,6 +115,10 @@ export interface Milestone {
 
 export const milestones: Milestone[] = [
   { label: "2ND PRIZE", detail: "Code Carnival 2K26, SIMATS Engineering — CongestiQ-AI" },
+  { label: "IEEE XTREME", detail: "IEEE Xtreme 19.0 — Global Rank 228 · India Rank 113 · 6th at Sri Sairam (Team TECHXKUZHU)" },
+  { label: "FINALIST", detail: "technoVIT'26, VIT Chennai — 24-hour hackathon, team selected for the final round (Green Pin Nexus)" },
+  { label: "ROUND 2", detail: "Sairam SDG Ideathon 6.0 — presented Silent Voices, Seen" },
+  { label: "NATIONAL", detail: "ByteBlaze — 12-hour national level hackathon, SIMATS Engineering" },
   { label: "IBM", detail: "1M1B Think Beyond" },
   { label: "CISCO", detail: "Introduction to Modern AI" },
   { label: "SKILLSOFT", detail: "Python Concurrent Programming" },
