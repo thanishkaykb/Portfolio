@@ -138,19 +138,6 @@
     transform: translateY(-3px);
   }
 
-  /* Life in Frames — endless film-strip drift */
-  @keyframes frames-marquee {
-    from { transform: translate3d(0, 0, 0); }
-    to { transform: translate3d(-50%, 0, 0); }
-  }
-  .frames-marquee {
-    animation: frames-marquee linear infinite;
-    will-change: transform;
-  }
-  .frames-marquee-paused {
-    animation-play-state: paused;
-  }
-
   /* Custom cursor - hide default on non-touch */
   @media (hover: hover) {
     * {
