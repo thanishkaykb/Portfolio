@@ -108,7 +108,7 @@ const HeroSection = () => {
           {/* Portrait with golden aura */}
           <motion.div
             {...fade(0.5)}
-            className="relative mx-auto w-full max-w-sm md:max-w-none flex justify-center md:justify-end md:-mt-16 lg:-mt-24"
+            className="relative mx-auto w-full max-w-sm md:max-w-none flex justify-center md:justify-end md:-mt-28 lg:-mt-44"
 
           >
             <img
