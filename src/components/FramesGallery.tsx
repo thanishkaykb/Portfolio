@@ -100,6 +100,12 @@ const FramesGallery = () => {
         const eff = ((tiles[i].lon + state.y) * Math.PI) / 180;
         const front = Math.cos(eff) * Math.cos((tiles[i].lat * Math.PI) / 180);
         const f = Math.max(front, 0);
+        if (Math.abs(front) < 0.045) {
+          el.style.opacity = "0";
+          el.style.filter = "none";
+          el.style.pointerEvents = "none";
+          continue;
+        }
         el.style.opacity = String(0.14 + 0.86 * Math.pow(f, 1.35));
         el.style.filter = front < 0.08 ? `blur(${Math.min(4, (0.08 - front) * 45)}px)` : "none";
         el.style.pointerEvents = front > 0.3 ? "auto" : "none";
@@ -230,7 +236,7 @@ const FramesGallery = () => {
           <div
             ref={stageRef}
             className="relative mt-4 h-[620px] sm:h-[740px] md:h-[840px] w-full select-none"
-            style={{ perspective: "1600px", touchAction: "pan-y" }}
+            style={{ perspective: "2000px", touchAction: "pan-y" }}
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
             onPointerUp={endDrag}
@@ -260,7 +266,7 @@ const FramesGallery = () => {
             {/* Soft edge fade so the sphere melts into the background */}
             <div
               className="pointer-events-none absolute inset-x-0 bottom-0 h-16"
-              style={{ background: "linear-gradient(to top, hsl(30 3% 7%), transparent)" }}
+              style={{ background: "linear-gradient(to top, hsl(30 3% 6%), transparent)" }}
               aria-hidden="true"
             />
           </div>
