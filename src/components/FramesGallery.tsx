@@ -51,8 +51,8 @@ const FramesGallery = () => {
 
   const layout = useMemo(() => {
     const n = Math.max(count, 1);
-    const tileSize = Math.max(78, Math.min(118, dims.w / 6.5));
-    const R = tileSize * 1.55;
+    const tileSize = Math.max(100, Math.min(170, dims.w / 4.8));
+    const R = tileSize * 1.8;
     const golden = Math.PI * (3 - Math.sqrt(5));
     const tiles = Array.from({ length: n }, (_, i) => {
       const y = 1 - ((i + 0.5) * 2) / n;
@@ -178,8 +178,9 @@ const FramesGallery = () => {
 
   return (
     <section id="frames" className="section-padding bg-card/40 overflow-hidden" ref={ref}>
-      <div className="max-w-6xl mx-auto">
+      <div className="w-full">
         <motion.div
+          className="max-w-6xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
@@ -228,8 +229,8 @@ const FramesGallery = () => {
         ) : (
           <div
             ref={stageRef}
-            className="relative mt-4 h-[480px] sm:h-[560px] md:h-[640px] w-full select-none"
-            style={{ perspective: "1200px", touchAction: "pan-y" }}
+            className="relative mt-4 h-[560px] sm:h-[700px] md:h-[800px] w-full select-none"
+            style={{ perspective: "1400px", touchAction: "pan-y" }}
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
             onPointerUp={endDrag}
