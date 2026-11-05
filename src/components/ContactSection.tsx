@@ -65,7 +65,7 @@ const ContactSection = () => {
             className="space-y-6"
           >
             <p className="text-muted-foreground leading-relaxed">
-              Whether you have a project idea, collaboration opportunity, or just want to say hi — I'd love to hear from you!
+              Whether you have a project idea, collaboration opportunity, or just want to say hi · I'd love to hear from you!
             </p>
 
             <div className="space-y-4">

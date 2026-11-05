@@ -15,7 +15,7 @@ const ExperienceSection = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <p className="editorial-label mb-4">03 — Experience</p>
+          <p className="editorial-label mb-4">03 · Experience</p>
           <h2 className="font-display text-5xl md:text-7xl mb-14">
             WHERE I'VE <span className="text-primary">CONTRIBUTED.</span>
           </h2>
@@ -41,7 +41,7 @@ const ExperienceSection = () => {
           ))}
         </div>
 
-        {/* Student leadership — compact editorial lines */}
+        {/* Student leadership · compact editorial lines */}
         <motion.div
           className="mt-16"
           initial={{ opacity: 0 }}

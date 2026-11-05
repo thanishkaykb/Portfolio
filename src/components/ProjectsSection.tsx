@@ -17,7 +17,7 @@ const ProjectsSection = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <p className="editorial-label mb-4">02 — Selected Projects</p>
+          <p className="editorial-label mb-4">02 · Selected Projects</p>
           <h2 className="font-display text-5xl md:text-7xl mb-4">
             THINGS I'VE <span className="text-primary">BUILT.</span>
           </h2>

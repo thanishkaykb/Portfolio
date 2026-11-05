@@ -23,7 +23,7 @@ const AboutSection = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <p className="editorial-label mb-4">01 — About</p>
+          <p className="editorial-label mb-4">01 · About</p>
           <h2 className="font-display text-5xl md:text-7xl mb-14">
             A LITTLE <span className="text-primary">ABOUT ME.</span>
           </h2>
@@ -75,7 +75,7 @@ const AboutSection = () => {
             transition={{ duration: 0.7, delay: 0.25 }}
           >
             <p className="editorial-label mb-2">Technical Toolkit</p>
-            <p className="font-hand text-accent text-lg mb-6 -rotate-1 inline-block">the tools I reach for —</p>
+            <p className="font-hand text-accent text-lg mb-6 -rotate-1 inline-block">the tools I reach for ·</p>
             <div>
               {toolkit.map((t) => (
                 <div key={t.category} className="hairline py-4">

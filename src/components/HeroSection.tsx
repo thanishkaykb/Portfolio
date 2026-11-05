@@ -13,16 +13,16 @@ const fade = (delay: number) => ({
 const HeroSection = () => {
   return (
     <section id="home" className="relative min-h-screen flex flex-col justify-center section-padding overflow-hidden">
-      {/* Editorial marginalia — pinned to the outer corners so it never overlaps the name */}
+      {/* Editorial marginalia · pinned to the outer corners so it never overlaps the name */}
       <div className="pointer-events-none absolute inset-0 hidden md:block" aria-hidden="true">
         <div className="absolute left-2 xl:left-4 top-1/2 -translate-y-1/2 -rotate-90 origin-left">
           <p className="font-body text-[10px] uppercase tracking-[0.4em] text-muted-foreground/40 whitespace-nowrap">
-            Chennai, India — 12.98° N, 80.22° E
+            Chennai, India · 12.98° N, 80.22° E
           </p>
         </div>
         <div className="absolute right-2 xl:right-4 top-1/2 -translate-y-1/2 rotate-90 origin-right">
           <p className="font-body text-[10px] uppercase tracking-[0.4em] text-muted-foreground/40 whitespace-nowrap">
-            Est. 2026 — Portfolio, Vol. 01
+            Est. 2026 · Portfolio, Vol. 01
           </p>
         </div>
       </div>
@@ -108,7 +108,7 @@ const HeroSection = () => {
           {/* Portrait with golden aura */}
           <motion.div
             {...fade(0.5)}
-            className="relative mx-auto w-full max-w-sm md:max-w-none flex justify-center md:justify-end md:-mt-16 lg:-mt-24"
+            className="relative mx-auto w-full max-w-sm md:max-w-none flex justify-center md:justify-end md:-mt-28 lg:-mt-44"
 
           >
             <img

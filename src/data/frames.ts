@@ -1,5 +1,5 @@
 /**
- * LIFE IN FRAMES — photograph manifest.
+ * LIFE IN FRAMES · photograph manifest.
  *
  * Photographs are Thanishka's real hackathon & college moments, synced from
  * her LinkedIn posts. To add more: upload the photo, then add one line here.
@@ -30,22 +30,22 @@ export interface Frame {
 }
 
 export const frames: Frame[] = [
-  { src: codecarnivalPrizeCertificate.url, caption: "Code Carnival 2K26 — 2nd Prize" },
-  { src: techsprintTeam.url, caption: "TechSprint — Team GoZim" },
-  { src: ieeeXtremeLeaderboard.url, caption: "IEEE Xtreme 19.0 — global leaderboard" },
-  { src: technovitVitCampus.url, caption: "technoVIT '26 — VIT Chennai" },
-  { src: codecarnivalWinnersStage.url, caption: "Code Carnival 2K26 — on stage" },
+  { src: codecarnivalPrizeCertificate.url, caption: "Code Carnival 2K26 · 2nd Prize" },
+  { src: techsprintTeam.url, caption: "TechSprint · Team GoZim" },
+  { src: ieeeXtremeLeaderboard.url, caption: "IEEE Xtreme 19.0 · global leaderboard" },
+  { src: technovitVitCampus.url, caption: "technoVIT '26 · VIT Chennai" },
+  { src: codecarnivalWinnersStage.url, caption: "Code Carnival 2K26 · on stage" },
   { src: techRoulettePoster.url, caption: "Tech Roulette 2026" },
-  { src: byteblazeBuild.url, caption: "ByteBlaze — building under pressure" },
-  { src: codecarnivalTeam.url, caption: "Code Carnival 2K26 — with the team" },
-  { src: technovitCertificate.url, caption: "technoVIT '26 — participation" },
-  { src: techsprintPoster.url, caption: "TechSprint — 6 hrs hackathon" },
-  { src: byteblazeCertificate.url, caption: "ByteBlaze — certificate" },
-  { src: techRouletteTeam.url, caption: "Tech Roulette 2026 — with the team" },
-  { src: codecarnivalArena.url, caption: "Code Carnival 2K26 — the arena" },
-  { src: techsprintCertificate.url, caption: "TechSprint — participation" },
-  { src: techRouletteFriends.url, caption: "Tech Roulette 2026 — hackathon hours" },
-  { src: byteblazeWorkspace.url, caption: "ByteBlaze — the battle station" },
-  { src: techRouletteCertificate.url, caption: "Tech Roulette 2026 — participation" },
-  { src: techsWithFriends.url, caption: "TechSprint — with friends" },
+  { src: byteblazeBuild.url, caption: "ByteBlaze · building under pressure" },
+  { src: codecarnivalTeam.url, caption: "Code Carnival 2K26 · with the team" },
+  { src: technovitCertificate.url, caption: "technoVIT '26 · participation" },
+  { src: techsprintPoster.url, caption: "TechSprint · 6 hrs hackathon" },
+  { src: byteblazeCertificate.url, caption: "ByteBlaze · certificate" },
+  { src: techRouletteTeam.url, caption: "Tech Roulette 2026 · with the team" },
+  { src: codecarnivalArena.url, caption: "Code Carnival 2K26 · the arena" },
+  { src: techsprintCertificate.url, caption: "TechSprint · participation" },
+  { src: techRouletteFriends.url, caption: "Tech Roulette 2026 · hackathon hours" },
+  { src: byteblazeWorkspace.url, caption: "ByteBlaze · the battle station" },
+  { src: techRouletteCertificate.url, caption: "Tech Roulette 2026 · participation" },
+  { src: techsWithFriends.url, caption: "TechSprint · with friends" },
 ];

@@ -50,7 +50,7 @@ const GithubSection = () => {
           className="flex flex-col md:flex-row md:items-end md:justify-between gap-8"
         >
           <div>
-            <p className="editorial-label mb-4">06 — Technical Work</p>
+            <p className="editorial-label mb-4">06 · Technical Work</p>
             <h2 className="font-display text-5xl md:text-7xl">
               MORE ON <span className="text-primary">GITHUB.</span>
             </h2>

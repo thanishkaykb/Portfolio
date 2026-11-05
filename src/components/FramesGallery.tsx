@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { frames, type Frame } from "@/data/frames";
 
 /**
- * LIFE IN FRAMES — interactive 3D photo sphere.
+ * LIFE IN FRAMES · interactive 3D photo sphere.
  *
  * Every photograph sits on the surface of a slowly rotating sphere
  * (like a globe of memories). Drag it to spin in any direction; photos on the
@@ -51,8 +51,8 @@ const FramesGallery = () => {
 
   const layout = useMemo(() => {
     const n = Math.max(count, 1);
-    const tileSize = Math.max(78, Math.min(118, dims.w / 6.5));
-    const R = tileSize * 1.55;
+    const tileSize = Math.max(110, Math.min(190, dims.w / 4.2));
+    const R = tileSize * 2.2;
     const golden = Math.PI * (3 - Math.sqrt(5));
     const tiles = Array.from({ length: n }, (_, i) => {
       const y = 1 - ((i + 0.5) * 2) / n;
@@ -92,7 +92,7 @@ const FramesGallery = () => {
       }
       const sphere = sphereRef.current;
       if (sphere) {
-        sphere.style.transform = `translateZ(${-R}px) rotateX(${state.tilt}deg) rotateY(${state.y}deg)`;
+        sphere.style.transform = `rotateX(${state.tilt}deg) rotateY(${state.y}deg)`;
       }
       for (let i = 0; i < tiles.length; i++) {
         const el = tileRefs.current[i];
@@ -100,6 +100,12 @@ const FramesGallery = () => {
         const eff = ((tiles[i].lon + state.y) * Math.PI) / 180;
         const front = Math.cos(eff) * Math.cos((tiles[i].lat * Math.PI) / 180);
         const f = Math.max(front, 0);
+        if (Math.abs(front) < 0.045) {
+          el.style.opacity = "0";
+          el.style.filter = "none";
+          el.style.pointerEvents = "none";
+          continue;
+        }
         el.style.opacity = String(0.14 + 0.86 * Math.pow(f, 1.35));
         el.style.filter = front < 0.08 ? `blur(${Math.min(4, (0.08 - front) * 45)}px)` : "none";
         el.style.pointerEvents = front > 0.3 ? "auto" : "none";
@@ -178,18 +184,19 @@ const FramesGallery = () => {
 
   return (
     <section id="frames" className="section-padding bg-card/40 overflow-hidden" ref={ref}>
-      <div className="max-w-6xl mx-auto">
+      <div className="w-full">
         <motion.div
+          className="max-w-6xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <p className="editorial-label mb-4">04 — Gallery</p>
+          <p className="editorial-label mb-4">04 · Gallery</p>
           <h2 className="font-display text-5xl md:text-7xl mb-4">
             LIFE IN <span className="text-primary">FRAMES.</span>
           </h2>
           <p className="font-accent italic text-muted-foreground text-lg mb-6">
-            Visual journey — moments that shaped my journey.
+            Visual journey · moments that shaped my journey.
           </p>
         </motion.div>
 
@@ -206,7 +213,7 @@ const FramesGallery = () => {
             </p>
             <p className="text-muted-foreground text-sm max-w-md mx-auto leading-relaxed">
               This gallery will fill up with genuine moments from college life, hackathons, projects and
-              everyday experiences — no placeholders, no fakes.
+              everyday experiences · no placeholders, no fakes.
             </p>
           </motion.div>
         ) : reducedMotion ? (
@@ -214,7 +221,7 @@ const FramesGallery = () => {
             className="mt-8 flex overflow-x-auto pb-4"
             style={{ scrollSnapType: "x mandatory" }}
             role="region"
-            aria-label="Photo gallery — scroll sideways"
+            aria-label="Photo gallery · scroll sideways"
             tabIndex={0}
           >
             {frames.map((f, i) => (
@@ -228,15 +235,15 @@ const FramesGallery = () => {
         ) : (
           <div
             ref={stageRef}
-            className="relative mt-4 h-[480px] sm:h-[560px] md:h-[640px] w-full select-none"
-            style={{ perspective: "1200px", touchAction: "pan-y" }}
+            className="relative mt-4 h-[620px] sm:h-[740px] md:h-[840px] w-full select-none"
+            style={{ perspective: "2000px", touchAction: "pan-y" }}
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
             onPointerUp={endDrag}
             onPointerLeave={endDrag}
             onPointerCancel={endDrag}
             role="region"
-            aria-label="Photo sphere — drag to spin, click a frame to open"
+            aria-label="Photo sphere · drag to spin, click a frame to open"
           >
             <div
               ref={sphereRef}
@@ -259,7 +266,7 @@ const FramesGallery = () => {
             {/* Soft edge fade so the sphere melts into the background */}
             <div
               className="pointer-events-none absolute inset-x-0 bottom-0 h-16"
-              style={{ background: "linear-gradient(to top, hsl(30 3% 7%), transparent)" }}
+              style={{ background: "linear-gradient(to top, hsl(30 3% 6%), transparent)" }}
               aria-hidden="true"
             />
           </div>
