@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { frames, type Frame } from "@/data/frames";
 
 /**
- * LIFE IN FRAMES — interactive 3D photo sphere.
+ * LIFE IN FRAMES · interactive 3D photo sphere.
  *
  * Every photograph sits on the surface of a slowly rotating sphere
  * (like a globe of memories). Drag it to spin in any direction; photos on the
@@ -184,12 +184,12 @@ const FramesGallery = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <p className="editorial-label mb-4">04 — Gallery</p>
+          <p className="editorial-label mb-4">04 · Gallery</p>
           <h2 className="font-display text-5xl md:text-7xl mb-4">
             LIFE IN <span className="text-primary">FRAMES.</span>
           </h2>
           <p className="font-accent italic text-muted-foreground text-lg mb-6">
-            Visual journey — moments that shaped my journey.
+            Visual journey · moments that shaped my journey.
           </p>
         </motion.div>
 
@@ -206,7 +206,7 @@ const FramesGallery = () => {
             </p>
             <p className="text-muted-foreground text-sm max-w-md mx-auto leading-relaxed">
               This gallery will fill up with genuine moments from college life, hackathons, projects and
-              everyday experiences — no placeholders, no fakes.
+              everyday experiences · no placeholders, no fakes.
             </p>
           </motion.div>
         ) : reducedMotion ? (
@@ -214,7 +214,7 @@ const FramesGallery = () => {
             className="mt-8 flex overflow-x-auto pb-4"
             style={{ scrollSnapType: "x mandatory" }}
             role="region"
-            aria-label="Photo gallery — scroll sideways"
+            aria-label="Photo gallery · scroll sideways"
             tabIndex={0}
           >
             {frames.map((f, i) => (
@@ -236,7 +236,7 @@ const FramesGallery = () => {
             onPointerLeave={endDrag}
             onPointerCancel={endDrag}
             role="region"
-            aria-label="Photo sphere — drag to spin, click a frame to open"
+            aria-label="Photo sphere · drag to spin, click a frame to open"
           >
             <div
               ref={sphereRef}

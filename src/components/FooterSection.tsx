@@ -14,7 +14,7 @@ const FooterSection = () => {
           <p className="font-accent italic text-muted-foreground text-sm mt-1">
             Designed with intention. Built with curiosity.
           </p>
-          <p className="editorial-label mt-2">© {year} — All rights reserved</p>
+          <p className="editorial-label mt-2">© {year} · All rights reserved</p>
         </div>
 
         <div className="flex items-center gap-6">

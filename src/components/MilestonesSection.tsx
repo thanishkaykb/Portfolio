@@ -15,7 +15,7 @@ const MilestonesSection = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <p className="editorial-label mb-4">05 — Achievements &amp; Certifications</p>
+          <p className="editorial-label mb-4">05 · Achievements &amp; Certifications</p>
           <h2 className="font-display text-5xl md:text-7xl mb-14">
             MILESTONES<span className="text-primary">.</span>
           </h2>
