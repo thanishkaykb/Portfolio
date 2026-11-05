@@ -51,8 +51,8 @@ const FramesGallery = () => {
 
   const layout = useMemo(() => {
     const n = Math.max(count, 1);
-    const tileSize = Math.max(100, Math.min(170, dims.w / 4.8));
-    const R = tileSize * 1.8;
+    const tileSize = Math.max(110, Math.min(190, dims.w / 4.2));
+    const R = tileSize * 2.2;
     const golden = Math.PI * (3 - Math.sqrt(5));
     const tiles = Array.from({ length: n }, (_, i) => {
       const y = 1 - ((i + 0.5) * 2) / n;
@@ -229,8 +229,8 @@ const FramesGallery = () => {
         ) : (
           <div
             ref={stageRef}
-            className="relative mt-4 h-[560px] sm:h-[700px] md:h-[800px] w-full select-none"
-            style={{ perspective: "1400px", touchAction: "pan-y" }}
+            className="relative mt-4 h-[620px] sm:h-[740px] md:h-[840px] w-full select-none"
+            style={{ perspective: "1600px", touchAction: "pan-y" }}
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
             onPointerUp={endDrag}
