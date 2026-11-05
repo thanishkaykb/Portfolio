@@ -92,7 +92,7 @@ const FramesGallery = () => {
       }
       const sphere = sphereRef.current;
       if (sphere) {
-        sphere.style.transform = `translateZ(${-R}px) rotateX(${state.tilt}deg) rotateY(${state.y}deg)`;
+        sphere.style.transform = `rotateX(${state.tilt}deg) rotateY(${state.y}deg)`;
       }
       for (let i = 0; i < tiles.length; i++) {
         const el = tileRefs.current[i];
