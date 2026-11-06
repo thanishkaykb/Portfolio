@@ -33,7 +33,7 @@ const FramesGallery = () => {
   const sphereTiles = useMemo(
     () =>
       frames.flatMap((frame, frameIndex) =>
-        Array.from({ length: 4 }, (_, repeatIndex) => ({
+        Array.from({ length: 6 }, (_, repeatIndex) => ({
           frame,
           frameIndex,
           key: `${frame.src}-${repeatIndex}`,
@@ -63,7 +63,7 @@ const FramesGallery = () => {
   const layout = useMemo(() => {
     const n = Math.max(sphereTiles.length, 1);
     const tileSize = Math.max(110, Math.min(190, dims.w / 4.2));
-    const R = tileSize * 2.2;
+    const R = tileSize * 2;
     const golden = Math.PI * (3 - Math.sqrt(5));
     const tiles = Array.from({ length: n }, (_, i) => {
       const y = 1 - ((i + 0.5) * 2) / n;
@@ -188,7 +188,7 @@ const FramesGallery = () => {
         alt={f.caption || `Photograph ${i + 1}`}
         className="h-full w-full object-cover"
         draggable={false}
-        loading="lazy"
+        loading="eager"
       />
     </button>
   );
