@@ -105,9 +105,8 @@ export const experience: ExperienceItem[] = [
 
 export const leadership: string[] = [
   "Outreach and Multimedia Committee Lead · IEEE TEMS",
-  "MAGIC Member · IEEE SAIRAM SIGHT",
-  "MAGIC Member · UBA",
-  "MAGIC Member · UI Autonomistic Club",
+  "Advocate · MAGIC Member · UBA",
+  "Mastermind · MAGIC Member · UI Autonomistic Club",
 ];
 
 export interface Milestone {

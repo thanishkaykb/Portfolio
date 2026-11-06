@@ -30,6 +30,17 @@ const FramesGallery = () => {
   const moved = useRef(0);
 
   const count = frames.length;
+  const sphereTiles = useMemo(
+    () =>
+      frames.flatMap((frame, frameIndex) =>
+        Array.from({ length: 6 }, (_, repeatIndex) => ({
+          frame,
+          frameIndex,
+          key: `${frame.src}-${repeatIndex}`,
+        })),
+      ),
+    [],
+  );
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -50,9 +61,9 @@ const FramesGallery = () => {
   }, [count]);
 
   const layout = useMemo(() => {
-    const n = Math.max(count, 1);
+    const n = Math.max(sphereTiles.length, 1);
     const tileSize = Math.max(110, Math.min(190, dims.w / 4.2));
-    const R = tileSize * 2.2;
+    const R = tileSize * 2;
     const golden = Math.PI * (3 - Math.sqrt(5));
     const tiles = Array.from({ length: n }, (_, i) => {
       const y = 1 - ((i + 0.5) * 2) / n;
@@ -63,7 +74,7 @@ const FramesGallery = () => {
       return { lat, lon, transform: `rotateY(${lon}deg) rotateX(${-lat}deg) translateZ(${R}px)` };
     });
     return { tileSize, R, tiles };
-  }, [dims.w, count]);
+  }, [dims.w, sphereTiles.length]);
 
   // Apply each tile's fixed spherical placement whenever the layout changes.
   useEffect(() => {
@@ -177,7 +188,7 @@ const FramesGallery = () => {
         alt={f.caption || `Photograph ${i + 1}`}
         className="h-full w-full object-cover"
         draggable={false}
-        loading="lazy"
+        loading="eager"
       />
     </button>
   );
@@ -250,16 +261,16 @@ const FramesGallery = () => {
               className="absolute left-1/2 top-1/2"
               style={{ transformStyle: "preserve-3d", willChange: "transform" }}
             >
-              {frames.map((f, i) => (
+              {sphereTiles.map(({ frame, frameIndex, key }, i) => (
                 <div
-                  key={`${f.src}-${i}`}
+                  key={key}
                   ref={(el) => {
                     tileRefs.current[i] = el;
                   }}
                   className="absolute left-0 top-0 will-change-transform"
                   style={{ backfaceVisibility: "visible" }}
                 >
-                  {tile(f, i)}
+                  {tile(frame, frameIndex)}
                 </div>
               ))}
             </div>
