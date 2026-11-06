@@ -30,18 +30,6 @@ const FramesGallery = () => {
   const moved = useRef(0);
 
   const count = frames.length;
-  const sphereTiles = useMemo(
-    () =>
-      frames.flatMap((frame, frameIndex) =>
-        Array.from({ length: 6 }, (_, repeatIndex) => ({
-          frame,
-          frameIndex,
-          key: `${frame.src}-${repeatIndex}`,
-        })),
-      ),
-    [],
-  );
-
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReducedMotion(mq.matches);
@@ -61,30 +49,39 @@ const FramesGallery = () => {
   }, [count]);
 
   const layout = useMemo(() => {
-    const n = Math.max(sphereTiles.length, 1);
-    const tileSize = Math.max(110, Math.min(190, dims.w / 4.2));
-    const R = tileSize * 2;
-    const golden = Math.PI * (3 - Math.sqrt(5));
-    const tiles = Array.from({ length: n }, (_, i) => {
-      const y = 1 - ((i + 0.5) * 2) / n;
-      const r = Math.sqrt(Math.max(0, 1 - y * y));
-      const theta = golden * i;
-      const lat = (Math.asin(y) * 180) / Math.PI;
-      const lon = (Math.atan2(Math.cos(theta) * r, Math.sin(theta) * r) * 180) / Math.PI;
-      return { lat, lon, transform: `rotateY(${lon}deg) rotateX(${-lat}deg) translateZ(${R}px)` };
-    });
-    return { tileSize, R, tiles };
-  }, [dims.w, sphereTiles.length]);
+    const R = Math.max(160, Math.min(dims.w * 0.39, dims.h * 0.46));
+    const tileWidth = Math.max(64, Math.min(112, R * 0.26));
+    const tileHeight = tileWidth * 0.82;
+    const gap = Math.max(10, tileWidth * 0.14);
+    const rowPitch = tileHeight + gap * 1.35;
+    const rowStep = (2 * Math.asin(Math.min(0.9, rowPitch / (2 * R))));
+    const rowCount = Math.max(5, Math.floor((Math.PI * 0.88) / rowStep) + 1);
+    const tiles = Array.from({ length: rowCount }, (_, row) => {
+      const lat = (-0.44 * Math.PI + (row * 0.88 * Math.PI) / (rowCount - 1));
+      const ringRadius = R * Math.cos(lat);
+      const columns = Math.max(4, Math.floor((2 * Math.PI * ringRadius) / (tileWidth + gap)));
+      return Array.from({ length: columns }, (_, column) => {
+        const lon = ((column + (row % 2) * 0.5) * 360) / columns;
+        const frameIndex = (row * 7 + column) % Math.max(count, 1);
+        return {
+          frameIndex,
+          key: `${row}-${column}`,
+          transform: `rotateY(${lon}deg) rotateX(${-((lat * 180) / Math.PI)}deg) translateZ(${R}px)`,
+        };
+      });
+    }).flat();
+    return { tileWidth, tileHeight, R, tiles };
+  }, [dims.w, dims.h, count]);
 
   // Apply each tile's fixed spherical placement whenever the layout changes.
   useEffect(() => {
     layout.tiles.forEach((t, i) => {
       const el = tileRefs.current[i];
       if (!el) return;
-      el.style.width = `${layout.tileSize}px`;
-      el.style.height = `${layout.tileSize * 1.16}px`;
-      el.style.marginLeft = `${-layout.tileSize / 2}px`;
-      el.style.marginTop = `${-layout.tileSize * 0.58}px`;
+      el.style.width = `${layout.tileWidth}px`;
+      el.style.height = `${layout.tileHeight}px`;
+      el.style.marginLeft = `${-layout.tileWidth / 2}px`;
+      el.style.marginTop = `${-layout.tileHeight / 2}px`;
       el.style.transform = t.transform;
     });
   }, [layout]);
@@ -93,7 +90,7 @@ const FramesGallery = () => {
   useEffect(() => {
     if (reducedMotion || count === 0) return;
     let raf = 0;
-    const { R, tiles } = layout;
+    const { tiles } = layout;
     const state = rot.current;
     const tick = () => {
       if (!state.dragging) {
@@ -119,7 +116,7 @@ const FramesGallery = () => {
         }
         el.style.opacity = String(0.14 + 0.86 * Math.pow(f, 1.35));
         el.style.filter = front < 0.08 ? `blur(${Math.min(4, (0.08 - front) * 45)}px)` : "none";
-        el.style.pointerEvents = front > 0.3 ? "auto" : "none";
+        el.style.pointerEvents = front > 0.45 ? "auto" : "none";
       }
       raf = requestAnimationFrame(tick);
     };
@@ -261,16 +258,16 @@ const FramesGallery = () => {
               className="absolute left-1/2 top-1/2"
               style={{ transformStyle: "preserve-3d", willChange: "transform" }}
             >
-              {sphereTiles.map(({ frame, frameIndex, key }, i) => (
+              {layout.tiles.map(({ frameIndex, key }, i) => (
                 <div
                   key={key}
                   ref={(el) => {
                     tileRefs.current[i] = el;
                   }}
                   className="absolute left-0 top-0 will-change-transform"
-                  style={{ backfaceVisibility: "visible" }}
+                  style={{ backfaceVisibility: "hidden" }}
                 >
-                  {tile(frame, frameIndex)}
+                  {frames[frameIndex] && tile(frames[frameIndex], frameIndex)}
                 </div>
               ))}
             </div>
